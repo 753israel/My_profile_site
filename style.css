@@ -1,0 +1,476 @@
+/**************************************************************
+ * 1. הגדרות יסוד ומשתנים (Global Variables)
+ * כאן נמצא ה"מוח" העיצובי של האתר. שינוי כאן ישפיע על כל הדף.
+ **************************************************************/
+:root {
+  --bg: #061024;               /* צבע הרקע הכהה והראשי */
+  --card: #0f172e66;           /* צבע כרטיסים שקוף למחצה */
+  --glass: rgba(255,255,255,0.04); /* שכבת זכוכית עדינה */
+  --accent-1: #6ee7b7;         /* ירוק מנטה - צבע דגש ראשי */
+  --accent-2: #60a5fa;         /* כחול שמיים - צבע דגש משני */
+  --muted: #9aa4b2;            /* אפור לטקסט פחות חשוב */
+  --surface: #0b1220;          /* צבע למשטחים אטומים */
+  --radius: 12px;              /* עיגול פינות סטנדרטי */
+  --glass-border: rgba(255,255,255,0.06); /* מסגרת דקיקה לזכוכית */
+  --max-width: 1200px;         /* רוחב מקסימלי של האתר */
+  
+  /* גופנים מודרניים */
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* הגדרות כלליות לכל האלמנטים */
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  /* רקע משולב: גרדיאנט ליניארי + הילה כחולה בצד (Radial) */
+  background: linear-gradient(180deg, #061024 0%, #071022 60%), 
+              radial-gradient(600px 300px at 10% 10%, rgba(96,165,250,0.06), transparent 10%), 
+              var(--bg);
+  color: #e6eef8;
+  -webkit-font-smoothing: antialiased; /* החלקת פונט */
+  line-height: 1.5;
+  direction: rtl; /* יישור לימין (עברית) */
+}
+
+/**************************************************************
+ * 2. מבנה פריסה (Layout & Header)
+ **************************************************************/
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* שורה גמישה שמרכזת אלמנטים */
+.header-inner, .hero-inner, .panel-grid, .footer-inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-inner { justify-content: space-between; }
+
+/* תפריט עליון צף עם אפקט טשטוש (Blur) */
+.main-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: linear-gradient(90deg, rgba(10,14,22,0.6), rgba(10,14,22,0.3));
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.logo { font-weight: 700; letter-spacing: 0.6px; }
+.logo span { color: var(--accent-1); }
+
+/**************************************************************
+ * 3. ניווט וכפתורים (Nav & Buttons)
+ **************************************************************/
+.nav ul {
+  display: flex;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all .18s;
+}
+
+.nav a:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.03);
+}
+
+/* כפתורים */
+.header-actions { display: flex; align-items: center; gap: 8px; }
+
+.btn {
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: 0.2s;
+}
+
+/* כפתור בולט עם גרדיאנט */
+.btn.primary, .cta {
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  color: #041029;
+  font-weight: 700;
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.menu-toggle { display: none; background: transparent; border: 0; color: var(--muted); font-size: 20px; }
+
+/**************************************************************
+ * 4. אזור ה-Hero (החלק העליון המרכזי)
+ **************************************************************/
+.hero { padding: 64px 0; }
+.hero-inner { align-items: center; justify-content: space-between; }
+.hero-text { max-width: 54%; }
+.hero-text h1 { font-size: 2.4rem; margin: 0 0 12px; }
+.hero-text p { color: var(--muted); margin: 0 0 18px; }
+.hero-actions .btn { margin-inline-start: 12px; }
+
+/* נתונים מספריים ב-Hero */
+.hero-stats { display: flex; gap: 16px; margin-top: 18px; }
+.stat h3 { margin: 0; font-size: 1.2rem; }
+.stat p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+
+/**************************************************************
+ * 5. כרטיס המדיה (Media Card) - הקופסה של התמונה
+ **************************************************************/
+.media-card {
+  width: 90%;
+  max-width: 350px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.25);
+  background: transparent;
+  margin: auto;
+}
+
+.media-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain; /* הצגת התמונה במלואה */
+}
+
+/**************************************************************
+ * 6. פאנלים, פרופיל ופיצ'רים (Panels & Features)
+ **************************************************************/
+.panel { padding: 40px 0; }
+
+/* אפקט הזכוכית המרכזי */
+.glass {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+/* סידור אזור האודות שיהיה באותו גובה */
+.panel-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* הפרופיל יתפוס שליש, הפיצ'רים שני שליש */
+    gap: 28px;
+    align-items: stretch; /* זה הקסם - גורם לכל הכרטיסים להיות באותו גובה */
+}
+
+/* סידור כרטיסי הפיצ'רים שיהיו אחד מעל השני או בגריד פנימי */
+.about-features {
+    display: grid;
+    grid-template-columns: 1fr; /* אחד מתחת לשני כדי להשוות גובה לפרופיל */
+    gap: 18px;
+}
+
+/* אם תרצה שהפיצ'רים יהיו בריבוע (כמו בתמונה ששלחת) אבל באותו קו עם הפרופיל: */
+@media (min-width: 1024px) {
+    .about-features {
+        grid-template-columns: repeat(2, 1fr); /* שניים בשורה */
+    }
+}
+
+.profile.glass {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* תופס את כל גובה המיכל */
+}
+
+.feature.glass {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* מרכז את התוכן בתוך הכרטיס */
+    height: 100%;
+}
+
+/* אזור הפרופיל והתמונה */
+.profile { max-width: 360px; }
+.avatar { 
+  width: 120px; height: 120px; 
+  border-radius: 999px; overflow: hidden; 
+  margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.04); 
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+/* תגיות קטנות (Pills) */
+.pill {
+  display: inline-block;
+  background: rgba(255,255,255,0.03);
+  padding: 6px 10px;
+  border-radius: 999px;
+  margin-inline-start: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* גריד של תכונות/יכולות */
+.about-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.feature {
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+  padding: 18px;
+  border-radius: 12px;
+}
+.feature .icon { font-size: 24px; margin-bottom: 8px; }
+
+/**************************************************************
+ * 7. פרויקטים ומיומנויות (Projects & Skills)
+ **************************************************************/
+.section { padding: 48px 0; }
+.section-title { margin: 0 0 18px; font-size: 1.4rem; }
+
+/* גריד של פרויקטים */
+.projects-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+
+.project-card {
+  background: var(--surface);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform .18s, box-shadow .18s;
+  cursor: pointer;
+}
+
+.project-card img { width: 100%; height: 160px; object-fit: cover; display: block; }
+
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(2,6,23,0.6);
+}
+
+.project-body { padding: 12px; }
+
+/* מדדי מיומנות (Progress Bars) */
+.skills-list { display: flex; flex-direction: column; gap: 12px; }
+.skill h4 { margin: 0 0 6px; }
+.meter { background: rgba(255,255,255,0.03); height: 10px; border-radius: 10px; overflow: hidden; }
+.meter span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-2), var(--accent-1));
+  border-radius: 10px;
+}
+
+/**************************************************************
+ * 8. צור קשר ופוטר (Contact & Footer)
+ **************************************************************/
+.contact-grid { display: grid; grid-template-columns: 1fr 320px; gap: 18px; margin-top: 12px; }
+.contact-form { display: flex; flex-direction: column; gap: 12px; }
+
+.contact-form input, .contact-form textarea {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 12px;
+  border-radius: 10px;
+  color: inherit;
+  outline: none;
+}
+
+.contact-form input:focus { border-color: var(--accent-1); }
+
+.social { display: flex; gap: 10px; margin-top: 12px; }
+.social a {
+  color: var(--muted);
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.03);
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.social a:hover { border-color: var(--accent-1); color: #fff; }
+
+.main-footer {
+  padding: 20px 0;
+  border-top: 1px solid rgba(255,255,255,0.03);
+  margin-top: 40px;
+}
+
+.footer-inner { justify-content: space-between; color: var(--muted); }
+
+/**************************************************************
+ * 9. התאמה למובייל (Responsive Design)
+ **************************************************************/
+
+/* טאבלטים ומסכים בינוניים */
+@media (max-width: 1000px) {
+  .hero-text { max-width: 60%; }
+  .projects-grid, .about-features { grid-template-columns: repeat(2, 1fr); }
+  .panel-grid, .hero-inner { flex-direction: column-reverse; gap: 30px; }
+  .media-card { width: 100%; height: auto !important; } /* תיקון הגובה שהיה חותך את התמונה */
+}
+
+/* טלפונים ניידים */
+@media (max-width: 680px) {
+  .nav ul { display: none; } /* הסתרת תפריט רגיל */
+  .menu-toggle { display: block; } /* הצגת כפתור המבורגר */
+  
+  /* תפריט שנפתח במובייל */
+  .nav.open ul {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 24px;
+    top: 68px;
+    background: var(--card);
+    padding: 12px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    z-index: 100;
+  }
+
+  .hero-text { max-width: 100%; text-align: center; }
+  .hero-inner { text-align: center; }
+  .hero-stats { justify-content: center; }
+  .projects-grid, .contact-grid { grid-template-columns: 1fr; }
+  .header-inner { gap: 8px; }
+  .media-card { max-width: 300px; border-radius: 14px; }
+}
+
+/* סידור החלק השמאלי של האודות */
+.about-content-left {
+    display: flex;
+    flex-direction: column;
+    gap: 18px; /* רווח בין הפיצ'רים לכלים הטכנולוגיים */
+}
+
+/* כותרת הכלים */
+.stack-title {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: var(--accent-1);
+    text-align: center;
+}
+
+/* גריד הכלים הטכנולוגיים */
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 עמודות שוות */
+    gap: 12px;
+}
+
+.tech-item {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid var(--glass-border);
+    transition: 0.3s;
+}
+
+.tech-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--accent-2);
+}
+
+.tech-item i {
+    font-size: 1.4rem;
+    color: var(--accent-2);
+}
+
+.tech-item span {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* התאמה למובייל - 2 עמודות במקום 3 */
+@media (max-width: 600px) {
+    .tech-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* תיקוני רספונסיביות למובייל */
+@media (max-width: 768px) {
+    
+    /* 1. הופך את כל הגרידים לטור אחד במקום כמה עמודות */
+    .panel-grid, 
+    .about-features, 
+    .projects-grid, 
+    .contact-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px;
+    }
+
+    /* 2. גריד הכלים הטכנולוגיים - במובייל כדאי 2 בשורה שיהיה קריא */
+    .tech-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* 3. ביטול גבהים קבועים כדי שהטקסט לא ייחתך */
+    .feature.glass, .profile.glass, .project-card {
+        height: auto !important;
+        padding: 20px;
+    }
+
+    /* 4. סידור התמונה ב-Hero שלא תתפוס את כל המסך */
+    .hero-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .media-card {
+        max-width: 280px;
+        margin: 20px auto;
+    }
+
+    /* 5. יישור טקסט למרכז במובייל (אופציונלי, נראה יותר טוב) */
+    .hero-text h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-actions {
+        justify-content: center;
+    }
+
+    /* תיקון ספציפי לכרטיס ה-About שבתמונה שלך */
+    .about-content-left {
+        order: 2; /* הפיצ'רים יופיעו מתחת לטקסט הראשי */
+    }
+    
+    .profile.glass {
+        order: 1;
+    }
+}
+
+.project-card img {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.project-card img:hover {
+    transform: scale(1.05); /* הגדלה קלה של התמונה במעבר עכבר */
+}
+
+.btn-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--accent-1);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.btn-link:hover {
+    text-decoration: underline;
+}
