@@ -1,37 +1,47 @@
 /* ============================================================
-   GLOBAL VARIABLES & RESET
+   משתנים גלובליים ואתחול (GLOBAL VARIABLES & RESET)
    ============================================================ */
 :root {
-  --bg: #060d1f;
-  --surface: #0b1530;
+  --bg: #060d1f;              /* צבע רקע ראשי כהה */
+  --surface: #0b1530;         /* צבע רקע משני לרכיבים פנימיים */
   --card: rgba(255,255,255,0.03);
   --glass: rgba(255,255,255,0.04);
   --glass-border: rgba(255,255,255,0.08);
-  --accent-1: #5eead4;   /* teal */
-  --accent-2: #818cf8;   /* indigo */
-  --accent-3: #f472b6;   /* pink */
-  --muted: #94a3b8;
-  --text: #e2e8f0;
-  --radius: 16px;
-  --max-width: 1200px;
+  --accent-1: #5eead4;        /* צבע טורקיז (Teal) */
+  --accent-2: #818cf8;        /* צבע אינדיגו/כחול (Indigo) */
+  --accent-3: #f472b6;        /* צבע ורוד (Pink) */
+  --muted: #94a3b8;           /* צבע טקסט משני/עמום */
+  --text: #e2e8f0;            /* צבע טקסט ראשי בהיר */
+  --radius: 16px;             /* רדיוס עיגול פינות ברירת מחדל */
+  --max-width: 1200px;        /* רוחב מקסימלי לאתר */
+  
+  /* הגדרת פונט DM Sans כפונט ברירת המחדל לכל האתר למראה נקי ומקצועי */
   font-family: 'DM Sans', system-ui, sans-serif;
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* איפוס שוליים הגדרת Box-Sizing לחישוב נכון של גדלים */
+*, *::before, *::after { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
 
-html { scroll-behavior: smooth; }
+/* גלילה חלקה במעבר בין תפריטים */
+html { 
+  scroll-behavior: smooth; 
+}
 
 body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
-  direction: rtl;
+  direction: rtl; /* תמיכה בכתיבה מימין לשמאל */
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: hidden; /* מניעת גלילה אופקית מיותרת */
 }
 
 /* ============================================================
-   LAYOUT
+   מבנה ופריסה גלובלית (LAYOUT)
    ============================================================ */
 .container {
   max-width: var(--max-width);
@@ -39,6 +49,7 @@ body {
   padding: 0 28px;
 }
 
+/* אפקט הזכוכית (Glassmorphism) המשמש פנלים וכרטיסים באתר */
 .glass {
   background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
   border: 1px solid var(--glass-border);
@@ -47,7 +58,7 @@ body {
 }
 
 /* ============================================================
-   HEADER
+   תפריט עליון (HEADER)
    ============================================================ */
 .main-header {
   position: sticky;
@@ -67,10 +78,24 @@ body {
   margin: 0 auto;
 }
 
-.logo { display: flex; align-items: center; text-decoration: none; }
-.logo-img { width: 56px; height: 56px; object-fit: contain; }
+.logo { 
+  display: flex; 
+  align-items: center; 
+  text-decoration: none; 
+}
 
-.nav ul { display: flex; gap: 4px; list-style: none; }
+.logo-img { 
+  width: 56px; 
+  height: 56px; 
+  object-fit: contain; 
+}
+
+.nav ul { 
+  display: flex; 
+  gap: 4px; 
+  list-style: none; 
+}
+
 .nav a {
   color: var(--muted);
   text-decoration: none;
@@ -80,12 +105,25 @@ body {
   font-weight: 500;
   transition: all 0.2s;
 }
-.nav a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
 
-.menu-toggle { display: none; background: none; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; padding: 8px; }
+.nav a:hover { 
+  color: var(--text); 
+  background: rgba(255,255,255,0.05); 
+}
+
+/* כפתור תפריט המבורגר למובייל - מוסתר במסכים גדולים */
+.menu-toggle { 
+  display: none; 
+  background: none; 
+  border: none; 
+  color: var(--muted); 
+  font-size: 1.2rem; 
+  cursor: pointer; 
+  padding: 8px; 
+}
 
 /* ============================================================
-   HERO
+   אזור פתיחה ראשי (HERO SECTION)
    ============================================================ */
 .hero {
   position: relative;
@@ -96,6 +134,7 @@ body {
   padding: 80px 0;
 }
 
+/* צורות רקע אמורפיות זוהרות */
 .hero-bg-shapes {
   position: absolute;
   inset: 0;
@@ -109,18 +148,21 @@ body {
   filter: blur(80px);
   opacity: 0.15;
 }
+
 .shape-1 {
   width: 600px; height: 600px;
   background: var(--accent-2);
   top: -200px; left: -200px;
   animation: float1 8s ease-in-out infinite;
 }
+
 .shape-2 {
   width: 400px; height: 400px;
   background: var(--accent-1);
   bottom: -100px; right: 10%;
   animation: float2 10s ease-in-out infinite;
 }
+
 .shape-3 {
   width: 300px; height: 300px;
   background: var(--accent-3);
@@ -128,6 +170,7 @@ body {
   animation: float1 12s ease-in-out infinite reverse;
 }
 
+/* אנימציות ריחוף לצורות הרקע */
 @keyframes float1 {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
   50% { transform: translateY(-30px) rotate(5deg); }
@@ -147,8 +190,11 @@ body {
   width: 100%;
 }
 
-.hero-text { max-width: 52%; }
+.hero-text { 
+  max-width: 52%; 
+}
 
+/* תגית סטטוס זמינות לעבודה */
 .hero-badge {
   display: inline-flex;
   align-items: center;
@@ -162,25 +208,31 @@ body {
   font-weight: 500;
   margin-bottom: 20px;
 }
+
 .badge-dot {
   width: 8px; height: 8px;
   background: var(--accent-1);
   border-radius: 50%;
   animation: pulse 2s infinite;
 }
+
 @keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.8); }
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(0.8); opacity: 0.5; }
 }
 
+/* הכותרת הראשית ב-Hero - עודכנה לפונט DM Sans הנקי למניעת מתיחה */
 .hero-text h1 {
-  font-family: 'Syne', sans-serif;
+  font-family: 'DM Sans', system-ui, sans-serif;
   font-size: clamp(2.2rem, 4.5vw, 3.5rem);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.15;
   color: #fff;
   margin-bottom: 18px;
+  letter-spacing: normal;
 }
+
+/* אפקט טקסט מדורג (גרדיאנט) */
 .accent-text {
   background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
   -webkit-background-clip: text;
@@ -196,8 +248,14 @@ body {
   max-width: 480px;
 }
 
-.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+.hero-actions { 
+  display: flex; 
+  gap: 12px; 
+  flex-wrap: wrap; 
+  margin-bottom: 40px; 
+}
 
+/* כפתורים עיצוב כללי */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -212,28 +270,55 @@ body {
   font-weight: 600;
   transition: all 0.25s;
 }
+
 .btn.primary {
   background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
   color: #04102a;
 }
-.btn.primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(94,234,212,0.25); }
+
+.btn.primary:hover { 
+  transform: translateY(-2px); 
+  box-shadow: 0 10px 30px rgba(94,234,212,0.25); 
+}
+
 .btn.ghost {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.1);
   color: var(--text);
 }
-.btn.ghost:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
 
+.btn.ghost:hover { 
+  background: rgba(255,255,255,0.08); 
+  transform: translateY(-2px); 
+}
+
+/* בלוק נתוני סטטיסטיקות - עודכן לפונט DM Sans למספרים תקינים ולא מתוחים */
 .hero-stats {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-.stat h3 { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: #fff; }
-.stat p { color: var(--muted); font-size: 0.85rem; }
-.stat-divider { width: 1px; height: 40px; background: var(--glass-border); }
 
-/* Media card - full image display like original */
+.stat h3 { 
+  font-family: 'DM Sans', system-ui, sans-serif; 
+  font-size: 1.6rem; 
+  font-weight: 700; 
+  color: #fff; 
+  letter-spacing: normal;
+}
+
+.stat p { 
+  color: var(--muted); 
+  font-size: 0.85rem; 
+}
+
+.stat-divider { 
+  width: 1px; 
+  height: 40px; 
+  background: var(--glass-border); 
+}
+
+/* כרטיס תמונת הפרופיל הצידית ב-Hero */
 .media-card {
   width: 100%;
   max-width: 380px;
@@ -244,6 +329,7 @@ body {
   background: var(--surface);
   position: relative;
 }
+
 .media-card::before {
   content: '';
   position: absolute;
@@ -253,6 +339,7 @@ body {
   z-index: -1;
   opacity: 0.5;
 }
+
 .media-card img {
   width: 100%;
   height: auto;
@@ -261,7 +348,7 @@ body {
 }
 
 /* ============================================================
-   SECTION LABELS & TITLES
+   תגיות וכותרות סקשנים גנריות (SECTION LABELS & TITLES)
    ============================================================ */
 .section-label {
   display: inline-block;
@@ -277,12 +364,14 @@ body {
   margin-bottom: 14px;
 }
 
+/* כותרות סקשנים - עודכנו לפונט נקי ומקצועי למניעת עיוות של אותיות לועזיות */
 .section-title {
-  font-family: 'Syne', sans-serif;
+  font-family: 'DM Sans', system-ui, sans-serif;
   font-size: clamp(1.6rem, 3vw, 2.2rem);
-  font-weight: 800;
+  font-weight: 700;
   color: #fff;
   margin-bottom: 8px;
+  letter-spacing: normal;
 }
 
 .section-sub {
@@ -292,9 +381,11 @@ body {
 }
 
 /* ============================================================
-   ABOUT SECTION
+   אזור אודות (ABOUT SECTION)
    ============================================================ */
-.about-section { padding: 100px 0; }
+.about-section { 
+  padding: 100px 0; 
+}
 
 .panel-grid {
   display: grid;
@@ -314,17 +405,27 @@ body {
   margin-bottom: 20px;
   border: 3px solid rgba(94,234,212,0.3);
 }
-.avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.avatar img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+}
 
 .profile-info h2 {
-  font-family: 'Syne', sans-serif;
+  font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 1.4rem;
   font-weight: 700;
   color: #fff;
   margin-bottom: 4px;
 }
 
-.profile-title { color: var(--accent-1); font-size: 0.9rem; font-weight: 500; margin-bottom: 14px; }
+.profile-title { 
+  color: var(--accent-1); 
+  font-size: 0.9rem; 
+  font-weight: 500; 
+  margin-bottom: 14px; 
+}
 
 .status-badge {
   display: inline-flex;
@@ -338,6 +439,7 @@ body {
   font-size: 0.8rem;
   margin-bottom: 16px;
 }
+
 .status-dot {
   width: 6px; height: 6px;
   background: var(--accent-1);
@@ -345,9 +447,19 @@ body {
   animation: pulse 2s infinite;
 }
 
-.profile-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 16px; }
+.profile-desc { 
+  color: var(--muted); 
+  font-size: 0.9rem; 
+  line-height: 1.7; 
+  margin-bottom: 16px; 
+}
 
-.profile-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.profile-pills { 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 8px; 
+}
+
 .pill {
   background: rgba(255,255,255,0.05);
   border: 1px solid var(--glass-border);
@@ -357,7 +469,11 @@ body {
   color: var(--muted);
 }
 
-.about-right { display: flex; flex-direction: column; gap: 20px; }
+.about-right { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 20px; 
+}
 
 .features-grid {
   display: grid;
@@ -369,17 +485,38 @@ body {
   padding: 20px;
   transition: transform 0.2s, border-color 0.2s;
 }
+
 .feature-card:hover {
   transform: translateY(-4px);
   border-color: rgba(94,234,212,0.2);
 }
-.feature-icon { font-size: 1.8rem; margin-bottom: 10px; }
-.feature-card h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
-.feature-card p { color: var(--muted); font-size: 0.85rem; line-height: 1.6; }
 
-.tech-stack { padding: 24px; }
+.feature-icon { 
+  font-size: 1.8rem; 
+  margin-bottom: 10px; 
+}
+
+.feature-card h3 { 
+  font-family: 'DM Sans', system-ui, sans-serif; 
+  font-size: 1rem; 
+  font-weight: 700; 
+  color: #fff; 
+  margin-bottom: 8px; 
+}
+
+.feature-card p { 
+  color: var(--muted); 
+  font-size: 0.85rem; 
+  line-height: 1.6; 
+}
+
+/* בלוק גריד טכנולוגיות וכלי עבודה */
+.tech-stack { 
+  padding: 24px; 
+}
+
 .stack-title {
-  font-family: 'Syne', sans-serif;
+  font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 1rem;
   font-weight: 700;
   color: var(--accent-1);
@@ -387,7 +524,11 @@ body {
   text-align: center;
 }
 
-.tech-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+.tech-grid { 
+  display: grid; 
+  grid-template-columns: repeat(6, 1fr); 
+  gap: 12px; 
+}
 
 .tech-item {
   display: flex;
@@ -401,14 +542,30 @@ body {
   transition: all 0.2s;
   cursor: default;
 }
-.tech-item:hover { background: rgba(255,255,255,0.05); border-color: var(--accent-2); transform: translateY(-2px); }
-.tech-item i { font-size: 1.4rem; color: var(--accent-2); }
-.tech-item span { font-size: 0.75rem; font-weight: 600; color: var(--muted); }
+
+.tech-item:hover { 
+  background: rgba(255,255,255,0.05); 
+  border-color: var(--accent-2); 
+  transform: translateY(-2px); 
+}
+
+.tech-item i { 
+  font-size: 1.4rem; 
+  color: var(--accent-2); 
+}
+
+.tech-item span { 
+  font-size: 0.75rem; 
+  font-weight: 600; 
+  color: var(--muted); 
+}
 
 /* ============================================================
-   PROJECTS
+   אזור פרויקטים (PROJECTS SECTION)
    ============================================================ */
-.projects-section { padding: 100px 0; }
+.projects-section { 
+  padding: 100px 0; 
+}
 
 .projects-grid {
   display: grid;
@@ -423,13 +580,19 @@ body {
   overflow: hidden;
   transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
 }
+
 .project-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 24px 60px rgba(0,0,0,0.5);
   border-color: rgba(94,234,212,0.2);
 }
 
-.card-image-link { position: relative; display: block; overflow: hidden; }
+.card-image-link { 
+  position: relative; 
+  display: block; 
+  overflow: hidden; 
+}
+
 .card-image-link img {
   width: 100%;
   height: 160px;
@@ -437,7 +600,11 @@ body {
   display: block;
   transition: transform 0.4s;
 }
-.card-image-link:hover img { transform: scale(1.06); }
+
+.card-image-link:hover img { 
+  transform: scale(1.06); 
+}
+
 .card-overlay {
   position: absolute;
   inset: 0;
@@ -450,13 +617,18 @@ body {
   font-size: 1.5rem;
   color: #fff;
 }
-.card-image-link:hover .card-overlay { opacity: 1; }
 
+.card-image-link:hover .card-overlay { 
+  opacity: 1; 
+}
+
+/* כרטיס ייעודי להורדת דוחות PDF */
 .project-card-pdf {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
+
 .pdf-icon-wrap {
   height: 160px;
   display: flex;
@@ -468,8 +640,17 @@ body {
   border-bottom: 1px solid var(--glass-border);
 }
 
-.project-body { padding: 16px; }
-.project-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.project-body { 
+  padding: 16px; 
+}
+
+.project-tags { 
+  display: flex; 
+  gap: 6px; 
+  flex-wrap: wrap; 
+  margin-bottom: 10px; 
+}
+
 .tag {
   background: rgba(129,140,248,0.1);
   border: 1px solid rgba(129,140,248,0.2);
@@ -479,15 +660,22 @@ body {
   font-size: 0.75rem;
   font-weight: 500;
 }
+
 .project-body h4 {
-  font-family: 'Syne', sans-serif;
+  font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 1rem;
   font-weight: 700;
   color: #fff;
   margin-bottom: 8px;
   line-height: 1.4;
 }
-.project-body p { color: var(--muted); font-size: 0.85rem; line-height: 1.6; margin-bottom: 12px; }
+
+.project-body p { 
+  color: var(--muted); 
+  font-size: 0.85rem; 
+  line-height: 1.6; 
+  margin-bottom: 12px; 
+}
 
 .btn-link {
   display: inline-flex;
@@ -499,12 +687,17 @@ body {
   font-weight: 600;
   transition: gap 0.2s;
 }
-.btn-link:hover { gap: 10px; }
+
+.btn-link:hover { 
+  gap: 10px; 
+}
 
 /* ============================================================
-   SKILLS
+   אזור מדדי כישורים (SKILLS SECTION)
    ============================================================ */
-.skills-section { padding: 100px 0; }
+.skills-section { 
+  padding: 100px 0; 
+}
 
 .skills-grid {
   display: grid;
@@ -527,14 +720,20 @@ body {
   font-size: 0.95rem;
   color: #fff;
 }
-.skill-pct { color: var(--accent-1); font-size: 0.85rem; }
 
+.skill-pct { 
+  color: var(--accent-1); 
+  font-size: 0.85rem; 
+}
+
+/* עיצוב פסי ההתקדמות (Progress bars) עם אפקט אנימציית ברק שחולף */
 .meter {
   height: 8px;
   background: rgba(255,255,255,0.05);
   border-radius: 100px;
   overflow: hidden;
 }
+
 .meter span {
   display: block;
   height: 100%;
@@ -543,6 +742,7 @@ body {
   position: relative;
   overflow: hidden;
 }
+
 .meter span::after {
   content: '';
   position: absolute;
@@ -550,15 +750,18 @@ body {
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
   animation: shimmer 2s infinite;
 }
+
 @keyframes shimmer {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
 }
 
 /* ============================================================
-   CONTACT
+   טופס יצירת קשר (CONTACT SECTION)
    ============================================================ */
-.contact-section { padding: 100px 0 120px; }
+.contact-section { 
+  padding: 100px 0 120px; 
+}
 
 .contact-grid {
   display: grid;
@@ -567,21 +770,41 @@ body {
   align-items: start;
 }
 
-.contact-form-wrap { padding: 36px; }
+.contact-form-wrap { 
+  padding: 36px; 
+}
+
 .contact-form-wrap h3 {
-  font-family: 'Syne', sans-serif;
+  font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 1.3rem;
   font-weight: 700;
   color: #fff;
   margin-bottom: 24px;
 }
 
-.contact-form { display: flex; flex-direction: column; gap: 16px; }
+.contact-form { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 16px; 
+}
 
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-row { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 16px; 
+}
 
-.form-group { display: flex; flex-direction: column; gap: 6px; }
-.form-group label { font-size: 0.85rem; font-weight: 500; color: var(--muted); }
+.form-group { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 6px; 
+}
+
+.form-group label { 
+  font-size: 0.85rem; 
+  font-weight: 500; 
+  color: var(--muted); 
+}
 
 .contact-form input,
 .contact-form textarea {
@@ -595,32 +818,56 @@ body {
   outline: none;
   transition: border-color 0.2s, background 0.2s;
 }
+
 .contact-form input::placeholder,
-.contact-form textarea::placeholder { color: rgba(148,163,184,0.4); }
+.contact-form textarea::placeholder { 
+  color: rgba(148,163,184,0.4); 
+}
+
 .contact-form input:focus,
 .contact-form textarea:focus {
   border-color: var(--accent-1);
   background: rgba(94,234,212,0.04);
 }
-.contact-form textarea { resize: vertical; min-height: 120px; }
 
-.submit-btn { align-self: flex-start; min-width: 160px; justify-content: center; }
-.submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; }
+.contact-form textarea { 
+  resize: vertical; 
+  min-height: 120px; 
+}
 
-.btn-loading { display: inline-flex; align-items: center; gap: 8px; }
+.submit-btn { 
+  align-self: flex-start; 
+  min-width: 160px; 
+  justify-content: center; 
+}
 
+.submit-btn:disabled { 
+  opacity: 0.6; 
+  cursor: not-allowed; 
+  transform: none !important; 
+}
+
+.btn-loading { 
+  display: inline-flex; 
+  align-items: center; 
+  gap: 8px; 
+}
+
+/* סטטוס שליחת טופס (הצלחה / שגיאה) */
 .form-status {
   font-size: 0.9rem;
   padding: 10px 14px;
   border-radius: 8px;
   display: none;
 }
+
 .form-status.success {
   display: block;
   background: rgba(16,185,129,0.1);
   border: 1px solid rgba(16,185,129,0.2);
   color: #34d399;
 }
+
 .form-status.error {
   display: block;
   background: rgba(239,68,68,0.1);
@@ -628,8 +875,12 @@ body {
   color: #f87171;
 }
 
-/* Contact info */
-.contact-info { display: flex; flex-direction: column; gap: 16px; }
+/* כרטיסי מידע ליצירת קשר (מייל, טלפון, מיקום) */
+.contact-info { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 16px; 
+}
 
 .info-card {
   display: flex;
@@ -637,6 +888,7 @@ body {
   gap: 16px;
   padding: 18px 20px;
 }
+
 .info-icon {
   width: 44px; height: 44px;
   background: rgba(94,234,212,0.1);
@@ -648,11 +900,31 @@ body {
   font-size: 1.1rem;
   flex-shrink: 0;
 }
-.info-label { font-size: 0.75rem; color: var(--muted); font-weight: 500; margin-bottom: 2px; }
-.info-value { font-size: 0.9rem; color: var(--text); font-weight: 500; text-decoration: none; }
-.info-value:hover { color: var(--accent-1); }
 
-.social-links { display: flex; gap: 12px; }
+.info-label { 
+  font-size: 0.75rem; 
+  color: var(--muted); 
+  font-weight: 500; 
+  margin-bottom: 2px; 
+}
+
+.info-value { 
+  font-size: 0.9rem; 
+  color: var(--text); 
+  font-weight: 500; 
+  text-decoration: none; 
+}
+
+.info-value:hover { 
+  color: var(--accent-1); 
+}
+
+/* כפתורי רשתות חברתיות */
+.social-links { 
+  display: flex; 
+  gap: 12px; 
+}
+
 .social-btn {
   flex: 1;
   display: inline-flex;
@@ -667,17 +939,23 @@ body {
   border: 1px solid var(--glass-border);
   transition: all 0.2s;
 }
+
 .social-btn.linkedin { color: #60a5fa; }
 .social-btn.github { color: var(--text); }
-.social-btn:hover { background: rgba(255,255,255,0.05); transform: translateY(-2px); }
+
+.social-btn:hover { 
+  background: rgba(255,255,255,0.05); 
+  transform: translateY(-2px); 
+}
 
 /* ============================================================
-   FOOTER
+   חלק תחתון (FOOTER)
    ============================================================ */
 .footer {
   border-top: 1px solid var(--glass-border);
   padding: 28px 0;
 }
+
 .footer-inner {
   display: flex;
   align-items: center;
@@ -685,67 +963,184 @@ body {
   color: var(--muted);
   font-size: 0.85rem;
 }
-.footer-socials { display: flex; gap: 12px; }
+
+.footer-socials { 
+  display: flex; 
+  gap: 12px; 
+}
+
 .footer-socials a {
   color: var(--muted);
   font-size: 1.1rem;
   transition: color 0.2s;
   text-decoration: none;
 }
-.footer-socials a:hover { color: var(--accent-1); }
+
+.footer-socials a:hover { 
+  color: var(--accent-1); 
+}
 
 /* ============================================================
-   ANIMATIONS
+   אנימציות כניסת תוכן (ANIMATIONS)
    ============================================================ */
 .fade-up {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
+
 .fade-up.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
 /* ============================================================
-   RESPONSIVE
+   התאמה למכשירים ורספונסיביות (RESPONSIVE DESIGN)
    ============================================================ */
+
+/* מסכים בינוניים ומחשבים ניידים קטנים */
 @media (max-width: 1100px) {
-  .projects-grid { grid-template-columns: repeat(2, 1fr); }
-  .tech-grid { grid-template-columns: repeat(3, 1fr); }
-  .panel-grid { grid-template-columns: 1fr; }
-  .profile-card { max-width: 400px; }
-  .features-grid { grid-template-columns: repeat(3, 1fr); }
+  .projects-grid { 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 20px;
+  }
+  .tech-grid { 
+    grid-template-columns: repeat(4, 1fr); 
+  }
+  .panel-grid { 
+    grid-template-columns: 1fr; 
+    gap: 32px;
+  }
+  .profile-card { 
+    max-width: 100%; 
+  }
+  .features-grid { 
+    grid-template-columns: repeat(3, 1fr); 
+  }
 }
 
+/* טאבלטים ומסכים עד 800 פיקסלים */
 @media (max-width: 800px) {
-  .hero-inner { flex-direction: column-reverse; text-align: center; gap: 40px; }
-  .hero-text { max-width: 100%; }
-  .hero-text p { margin: 0 auto 28px; }
-  .hero-actions { justify-content: center; }
-  .hero-stats { justify-content: center; }
-  .media-card { max-width: 300px; margin: 0 auto; }
-  .contact-grid { grid-template-columns: 1fr; }
-  .form-row { grid-template-columns: 1fr; }
-  .skills-grid { grid-template-columns: 1fr; }
+  .hero {
+    padding: 60px 0;
+    min-height: auto;
+  }
+  .hero-inner { 
+    flex-direction: column-reverse; 
+    text-align: center; 
+    gap: 40px; 
+  }
+  .hero-text { 
+    max-width: 100%; 
+  }
+  .hero-text p { 
+    margin: 0 auto 28px; 
+  }
+  .hero-actions { 
+    justify-content: center; 
+  }
+  .hero-stats { 
+    justify-content: center; 
+  }
+  .media-card { 
+    max-width: 300px; 
+    margin: 0 auto; 
+  }
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .contact-grid { 
+    grid-template-columns: 1fr; 
+    gap: 32px;
+  }
+  .form-row { 
+    grid-template-columns: 1fr; 
+  }
+  .skills-grid { 
+    grid-template-columns: 1fr; 
+  }
 }
 
+/* טלפונים ניידים ומכשירים קטנים (מובייל - עד 640 פיקסלים) */
 @media (max-width: 640px) {
-  .nav ul { display: none; }
-  .menu-toggle { display: block; }
-  .nav.open { position: fixed; inset: 0; top: 65px; background: rgba(6,13,31,0.97); backdrop-filter: blur(20px); z-index: 99; }
+  .container {
+    padding: 0 20px;
+  }
+  
+  /* תפריט המבורגר רספונסיבי במצב פתוח */
+  .menu-toggle { 
+    display: block !important; 
+    color: var(--text);
+  }
+  .nav {
+    display: none;
+  }
+  .nav.open { 
+    display: block !important;
+    position: fixed; 
+    inset: 0; 
+    top: 80px; 
+    background: rgba(6, 13, 31, 0.98); 
+    backdrop-filter: blur(20px); 
+    z-index: 99; 
+    padding: 40px 20px;
+  }
   .nav.open ul {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    gap: 32px;
+  }
+  .nav.open a { 
+    font-size: 1.3rem; 
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+  }
+
+  /* התאמות תוכן ייעודיות למסכי טלפונים */
+  .hero-text h1 { 
+    font-size: 2.2rem; 
+  }
+  .hero-actions .btn {
+    width: 100%; /* כפתורים ברוחב מלא ללחיצה קלה במובייל */
+    justify-content: center;
+  }
+  
+  .profile-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 100%;
-    gap: 24px;
+    text-align: center;
   }
-  .nav.open a { font-size: 1.2rem; }
-  .projects-grid { grid-template-columns: 1fr; }
-  .features-grid { grid-template-columns: 1fr; }
-  .tech-grid { grid-template-columns: repeat(3, 1fr); }
-  .hero-text h1 { font-size: 2rem; }
-  .media-card { max-width: 260px; }
+  .profile-pills {
+    justify-content: center;
+  }
+  .features-grid { 
+    grid-template-columns: 1fr; 
+  }
+  .projects-grid { 
+    grid-template-columns: 1fr; 
+  }
+  .tech-grid { 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 10px;
+  }
+  .contact-form-wrap {
+    padding: 24px;
+  }
+  .submit-btn {
+    width: 100%;
+  }
+  .social-links {
+    flex-direction: column;
+  }
+  
+  .footer-inner {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
 }
