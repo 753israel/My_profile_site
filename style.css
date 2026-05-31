@@ -1,476 +1,751 @@
-/**************************************************************
- * 1. הגדרות יסוד ומשתנים (Global Variables)
- * כאן נמצא ה"מוח" העיצובי של האתר. שינוי כאן ישפיע על כל הדף.
- **************************************************************/
+/* ============================================================
+   GLOBAL VARIABLES & RESET
+   ============================================================ */
 :root {
-  --bg: #061024;               /* צבע הרקע הכהה והראשי */
-  --card: #0f172e66;           /* צבע כרטיסים שקוף למחצה */
-  --glass: rgba(255,255,255,0.04); /* שכבת זכוכית עדינה */
-  --accent-1: #6ee7b7;         /* ירוק מנטה - צבע דגש ראשי */
-  --accent-2: #60a5fa;         /* כחול שמיים - צבע דגש משני */
-  --muted: #9aa4b2;            /* אפור לטקסט פחות חשוב */
-  --surface: #0b1220;          /* צבע למשטחים אטומים */
-  --radius: 12px;              /* עיגול פינות סטנדרטי */
-  --glass-border: rgba(255,255,255,0.06); /* מסגרת דקיקה לזכוכית */
-  --max-width: 1200px;         /* רוחב מקסימלי של האתר */
-  
-  /* גופנים מודרניים */
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  --bg: #060d1f;
+  --surface: #0b1530;
+  --card: rgba(255,255,255,0.03);
+  --glass: rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.08);
+  --accent-1: #5eead4;   /* teal */
+  --accent-2: #818cf8;   /* indigo */
+  --accent-3: #f472b6;   /* pink */
+  --muted: #94a3b8;
+  --text: #e2e8f0;
+  --radius: 16px;
+  --max-width: 1200px;
+  font-family: 'DM Sans', system-ui, sans-serif;
 }
 
-/* הגדרות כלליות לכל האלמנטים */
-* { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body { height: 100%; }
+html { scroll-behavior: smooth; }
 
 body {
-  margin: 0;
-  /* רקע משולב: גרדיאנט ליניארי + הילה כחולה בצד (Radial) */
-  background: linear-gradient(180deg, #061024 0%, #071022 60%), 
-              radial-gradient(600px 300px at 10% 10%, rgba(96,165,250,0.06), transparent 10%), 
-              var(--bg);
-  color: #e6eef8;
-  -webkit-font-smoothing: antialiased; /* החלקת פונט */
-  line-height: 1.5;
-  direction: rtl; /* יישור לימין (עברית) */
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  direction: rtl;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
-/**************************************************************
- * 2. מבנה פריסה (Layout & Header)
- **************************************************************/
+/* ============================================================
+   LAYOUT
+   ============================================================ */
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 24px;
+  padding: 0 28px;
 }
 
-/* שורה גמישה שמרכזת אלמנטים */
-.header-inner, .hero-inner, .panel-grid, .footer-inner {
+.glass {
+  background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(12px);
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.main-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(6,13,31,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 28px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.logo { display: flex; align-items: center; text-decoration: none; }
+.logo-img { width: 56px; height: 56px; object-fit: contain; }
+
+.nav ul { display: flex; gap: 4px; list-style: none; }
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.nav a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+
+.menu-toggle { display: none; background: none; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; padding: 8px; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 80px 0;
+}
+
+.hero-bg-shapes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+}
+.shape-1 {
+  width: 600px; height: 600px;
+  background: var(--accent-2);
+  top: -200px; left: -200px;
+  animation: float1 8s ease-in-out infinite;
+}
+.shape-2 {
+  width: 400px; height: 400px;
+  background: var(--accent-1);
+  bottom: -100px; right: 10%;
+  animation: float2 10s ease-in-out infinite;
+}
+.shape-3 {
+  width: 300px; height: 300px;
+  background: var(--accent-3);
+  top: 50%; left: 40%;
+  animation: float1 12s ease-in-out infinite reverse;
+}
+
+@keyframes float1 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-30px) rotate(5deg); }
+}
+@keyframes float2 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(20px); }
+}
+
+.hero-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.hero-text { max-width: 52%; }
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(94,234,212,0.08);
+  border: 1px solid rgba(94,234,212,0.2);
+  color: var(--accent-1);
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+.badge-dot {
+  width: 8px; height: 8px;
+  background: var(--accent-1);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero-text h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #fff;
+  margin-bottom: 18px;
+}
+.accent-text {
+  background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-text p {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  max-width: 480px;
+}
+
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.25s;
+}
+.btn.primary {
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  color: #04102a;
+}
+.btn.primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(94,234,212,0.25); }
+.btn.ghost {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text);
+}
+.btn.ghost:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+
+.hero-stats {
   display: flex;
   align-items: center;
   gap: 20px;
 }
+.stat h3 { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: #fff; }
+.stat p { color: var(--muted); font-size: 0.85rem; }
+.stat-divider { width: 1px; height: 40px; background: var(--glass-border); }
 
-.header-inner { justify-content: space-between; }
-
-/* תפריט עליון צף עם אפקט טשטוש (Blur) */
-.main-header {
-  position: sticky;
-  top: 0;
-  z-index: 40;
-  background: linear-gradient(90deg, rgba(10,14,22,0.6), rgba(10,14,22,0.3));
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid rgba(255,255,255,0.03);
-}
-
-.logo { font-weight: 700; letter-spacing: 0.6px; }
-.logo span { color: var(--accent-1); }
-
-/**************************************************************
- * 3. ניווט וכפתורים (Nav & Buttons)
- **************************************************************/
-.nav ul {
-  display: flex;
-  gap: 16px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.nav a {
-  color: var(--muted);
-  text-decoration: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  transition: all .18s;
-}
-
-.nav a:hover {
-  color: #fff;
-  background: rgba(255,255,255,0.03);
-}
-
-/* כפתורים */
-.header-actions { display: flex; align-items: center; gap: 8px; }
-
-.btn {
-  display: inline-block;
-  padding: 10px 14px;
-  border-radius: 10px;
-  border: 0;
-  cursor: pointer;
-  text-decoration: none;
-  color: inherit;
-  transition: 0.2s;
-}
-
-/* כפתור בולט עם גרדיאנט */
-.btn.primary, .cta {
-  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
-  color: #041029;
-  font-weight: 700;
-}
-
-.btn.ghost {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.06);
-}
-
-.menu-toggle { display: none; background: transparent; border: 0; color: var(--muted); font-size: 20px; }
-
-/**************************************************************
- * 4. אזור ה-Hero (החלק העליון המרכזי)
- **************************************************************/
-.hero { padding: 64px 0; }
-.hero-inner { align-items: center; justify-content: space-between; }
-.hero-text { max-width: 54%; }
-.hero-text h1 { font-size: 2.4rem; margin: 0 0 12px; }
-.hero-text p { color: var(--muted); margin: 0 0 18px; }
-.hero-actions .btn { margin-inline-start: 12px; }
-
-/* נתונים מספריים ב-Hero */
-.hero-stats { display: flex; gap: 16px; margin-top: 18px; }
-.stat h3 { margin: 0; font-size: 1.2rem; }
-.stat p { margin: 0; color: var(--muted); font-size: 0.9rem; }
-
-/**************************************************************
- * 5. כרטיס המדיה (Media Card) - הקופסה של התמונה
- **************************************************************/
+/* Media card - full image display like original */
 .media-card {
-  width: 90%;
-  max-width: 350px;
-  border-radius: 18px;
+  width: 100%;
+  max-width: 380px;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.25);
-  background: transparent;
-  margin: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  border: 1px solid var(--glass-border);
+  background: var(--surface);
+  position: relative;
 }
-
+.media-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2), var(--accent-3));
+  z-index: -1;
+  opacity: 0.5;
+}
 .media-card img {
   width: 100%;
   height: auto;
   display: block;
-  object-fit: contain; /* הצגת התמונה במלואה */
+  object-fit: contain;
 }
 
-/**************************************************************
- * 6. פאנלים, פרופיל ופיצ'רים (Panels & Features)
- **************************************************************/
-.panel { padding: 40px 0; }
+/* ============================================================
+   SECTION LABELS & TITLES
+   ============================================================ */
+.section-label {
+  display: inline-block;
+  background: rgba(129,140,248,0.1);
+  border: 1px solid rgba(129,140,248,0.2);
+  color: var(--accent-2);
+  padding: 4px 14px;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
 
-/* אפקט הזכוכית המרכזי */
-.glass {
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.section-sub {
+  color: var(--muted);
+  margin-bottom: 40px;
+  font-size: 1rem;
+}
+
+/* ============================================================
+   ABOUT SECTION
+   ============================================================ */
+.about-section { padding: 100px 0; }
+
+.panel-grid {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.profile-card {
+  padding: 32px 24px;
+}
+
+.avatar {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border: 3px solid rgba(94,234,212,0.3);
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.profile-info h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.profile-title { color: var(--accent-1); font-size: 0.9rem; font-weight: 500; margin-bottom: 14px; }
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(94,234,212,0.06);
+  border: 1px solid rgba(94,234,212,0.15);
+  color: var(--accent-1);
+  padding: 5px 12px;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  margin-bottom: 16px;
+}
+.status-dot {
+  width: 6px; height: 6px;
+  background: var(--accent-1);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.profile-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 16px; }
+
+.profile-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--glass-border);
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.about-right { display: flex; flex-direction: column; gap: 20px; }
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.feature-card {
+  padding: 20px;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.feature-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(94,234,212,0.2);
+}
+.feature-icon { font-size: 1.8rem; margin-bottom: 10px; }
+.feature-card h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.feature-card p { color: var(--muted); font-size: 0.85rem; line-height: 1.6; }
+
+.tech-stack { padding: 24px; }
+.stack-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-1);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.tech-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+
+.tech-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 8px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  transition: all 0.2s;
+  cursor: default;
+}
+.tech-item:hover { background: rgba(255,255,255,0.05); border-color: var(--accent-2); transform: translateY(-2px); }
+.tech-item i { font-size: 1.4rem; color: var(--accent-2); }
+.tech-item span { font-size: 0.75rem; font-weight: 600; color: var(--muted); }
+
+/* ============================================================
+   PROJECTS
+   ============================================================ */
+.projects-section { padding: 100px 0; }
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+  border-color: rgba(94,234,212,0.2);
+}
+
+.card-image-link { position: relative; display: block; overflow: hidden; }
+.card-image-link img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s;
+}
+.card-image-link:hover img { transform: scale(1.06); }
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(6,13,31,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 1.5rem;
+  color: #fff;
+}
+.card-image-link:hover .card-overlay { opacity: 1; }
+
+.project-card-pdf {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.pdf-icon-wrap {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(239,68,68,0.05));
+  font-size: 3rem;
+  color: #ef4444;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.project-body { padding: 16px; }
+.project-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.tag {
+  background: rgba(129,140,248,0.1);
+  border: 1px solid rgba(129,140,248,0.2);
+  color: var(--accent-2);
+  padding: 2px 10px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+.project-body h4 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.project-body p { color: var(--muted); font-size: 0.85rem; line-height: 1.6; margin-bottom: 12px; }
+
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent-1);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: gap 0.2s;
+}
+.btn-link:hover { gap: 10px; }
+
+/* ============================================================
+   SKILLS
+   ============================================================ */
+.skills-section { padding: 100px 0; }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.skill-item {
+  background: var(--surface);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
   padding: 20px;
 }
 
-/* סידור אזור האודות שיהיה באותו גובה */
-.panel-grid {
-    display: grid;
-    grid-template-columns: 1fr 2fr; /* הפרופיל יתפוס שליש, הפיצ'רים שני שליש */
-    gap: 28px;
-    align-items: stretch; /* זה הקסם - גורם לכל הכרטיסים להיות באותו גובה */
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #fff;
 }
+.skill-pct { color: var(--accent-1); font-size: 0.85rem; }
 
-/* סידור כרטיסי הפיצ'רים שיהיו אחד מעל השני או בגריד פנימי */
-.about-features {
-    display: grid;
-    grid-template-columns: 1fr; /* אחד מתחת לשני כדי להשוות גובה לפרופיל */
-    gap: 18px;
-}
-
-/* אם תרצה שהפיצ'רים יהיו בריבוע (כמו בתמונה ששלחת) אבל באותו קו עם הפרופיל: */
-@media (min-width: 1024px) {
-    .about-features {
-        grid-template-columns: repeat(2, 1fr); /* שניים בשורה */
-    }
-}
-
-.profile.glass {
-    display: flex;
-    flex-direction: column;
-    height: 100%; /* תופס את כל גובה המיכל */
-}
-
-.feature.glass {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* מרכז את התוכן בתוך הכרטיס */
-    height: 100%;
-}
-
-/* אזור הפרופיל והתמונה */
-.profile { max-width: 360px; }
-.avatar { 
-  width: 120px; height: 120px; 
-  border-radius: 999px; overflow: hidden; 
-  margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.04); 
-}
-.avatar img { width: 100%; height: 100%; object-fit: cover; }
-
-/* תגיות קטנות (Pills) */
-.pill {
-  display: inline-block;
-  background: rgba(255,255,255,0.03);
-  padding: 6px 10px;
-  border-radius: 999px;
-  margin-inline-start: 8px;
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-
-/* גריד של תכונות/יכולות */
-.about-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-.feature {
-  background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-  padding: 18px;
-  border-radius: 12px;
-}
-.feature .icon { font-size: 24px; margin-bottom: 8px; }
-
-/**************************************************************
- * 7. פרויקטים ומיומנויות (Projects & Skills)
- **************************************************************/
-.section { padding: 48px 0; }
-.section-title { margin: 0 0 18px; font-size: 1.4rem; }
-
-/* גריד של פרויקטים */
-.projects-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-
-.project-card {
-  background: var(--surface);
-  border-radius: 12px;
+.meter {
+  height: 8px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 100px;
   overflow: hidden;
-  transition: transform .18s, box-shadow .18s;
-  cursor: pointer;
 }
-
-.project-card img { width: 100%; height: 160px; object-fit: cover; display: block; }
-
-.project-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 50px rgba(2,6,23,0.6);
-}
-
-.project-body { padding: 12px; }
-
-/* מדדי מיומנות (Progress Bars) */
-.skills-list { display: flex; flex-direction: column; gap: 12px; }
-.skill h4 { margin: 0 0 6px; }
-.meter { background: rgba(255,255,255,0.03); height: 10px; border-radius: 10px; overflow: hidden; }
 .meter span {
   display: block;
   height: 100%;
   background: linear-gradient(90deg, var(--accent-2), var(--accent-1));
-  border-radius: 10px;
+  border-radius: 100px;
+  position: relative;
+  overflow: hidden;
+}
+.meter span::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  animation: shimmer 2s infinite;
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
-/**************************************************************
- * 8. צור קשר ופוטר (Contact & Footer)
- **************************************************************/
-.contact-grid { display: grid; grid-template-columns: 1fr 320px; gap: 18px; margin-top: 12px; }
-.contact-form { display: flex; flex-direction: column; gap: 12px; }
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact-section { padding: 100px 0 120px; }
 
-.contact-form input, .contact-form textarea {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.06);
-  padding: 12px;
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 28px;
+  align-items: start;
+}
+
+.contact-form-wrap { padding: 36px; }
+.contact-form-wrap h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 24px;
+}
+
+.contact-form { display: flex; flex-direction: column; gap: 16px; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-size: 0.85rem; font-weight: 500; color: var(--muted); }
+
+.contact-form input,
+.contact-form textarea {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--glass-border);
+  padding: 12px 16px;
   border-radius: 10px;
-  color: inherit;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.9rem;
   outline: none;
+  transition: border-color 0.2s, background 0.2s;
 }
+.contact-form input::placeholder,
+.contact-form textarea::placeholder { color: rgba(148,163,184,0.4); }
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--accent-1);
+  background: rgba(94,234,212,0.04);
+}
+.contact-form textarea { resize: vertical; min-height: 120px; }
 
-.contact-form input:focus { border-color: var(--accent-1); }
+.submit-btn { align-self: flex-start; min-width: 160px; justify-content: center; }
+.submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; }
 
-.social { display: flex; gap: 10px; margin-top: 12px; }
-.social a {
-  color: var(--muted);
-  text-decoration: none;
-  border: 1px solid rgba(255,255,255,0.03);
-  padding: 6px 10px;
+.btn-loading { display: inline-flex; align-items: center; gap: 8px; }
+
+.form-status {
+  font-size: 0.9rem;
+  padding: 10px 14px;
   border-radius: 8px;
-  transition: 0.2s;
+  display: none;
+}
+.form-status.success {
+  display: block;
+  background: rgba(16,185,129,0.1);
+  border: 1px solid rgba(16,185,129,0.2);
+  color: #34d399;
+}
+.form-status.error {
+  display: block;
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.2);
+  color: #f87171;
 }
 
-.social a:hover { border-color: var(--accent-1); color: #fff; }
+/* Contact info */
+.contact-info { display: flex; flex-direction: column; gap: 16px; }
 
-.main-footer {
-  padding: 20px 0;
-  border-top: 1px solid rgba(255,255,255,0.03);
-  margin-top: 40px;
+.info-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+}
+.info-icon {
+  width: 44px; height: 44px;
+  background: rgba(94,234,212,0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-1);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.info-label { font-size: 0.75rem; color: var(--muted); font-weight: 500; margin-bottom: 2px; }
+.info-value { font-size: 0.9rem; color: var(--text); font-weight: 500; text-decoration: none; }
+.info-value:hover { color: var(--accent-1); }
+
+.social-links { display: flex; gap: 12px; }
+.social-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid var(--glass-border);
+  transition: all 0.2s;
+}
+.social-btn.linkedin { color: #60a5fa; }
+.social-btn.github { color: var(--text); }
+.social-btn:hover { background: rgba(255,255,255,0.05); transform: translateY(-2px); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  border-top: 1px solid var(--glass-border);
+  padding: 28px 0;
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.footer-socials { display: flex; gap: 12px; }
+.footer-socials a {
+  color: var(--muted);
+  font-size: 1.1rem;
+  transition: color 0.2s;
+  text-decoration: none;
+}
+.footer-socials a:hover { color: var(--accent-1); }
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.footer-inner { justify-content: space-between; color: var(--muted); }
-
-/**************************************************************
- * 9. התאמה למובייל (Responsive Design)
- **************************************************************/
-
-/* טאבלטים ומסכים בינוניים */
-@media (max-width: 1000px) {
-  .hero-text { max-width: 60%; }
-  .projects-grid, .about-features { grid-template-columns: repeat(2, 1fr); }
-  .panel-grid, .hero-inner { flex-direction: column-reverse; gap: 30px; }
-  .media-card { width: 100%; height: auto !important; } /* תיקון הגובה שהיה חותך את התמונה */
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1100px) {
+  .projects-grid { grid-template-columns: repeat(2, 1fr); }
+  .tech-grid { grid-template-columns: repeat(3, 1fr); }
+  .panel-grid { grid-template-columns: 1fr; }
+  .profile-card { max-width: 400px; }
+  .features-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* טלפונים ניידים */
-@media (max-width: 680px) {
-  .nav ul { display: none; } /* הסתרת תפריט רגיל */
-  .menu-toggle { display: block; } /* הצגת כפתור המבורגר */
-  
-  /* תפריט שנפתח במובייל */
+@media (max-width: 800px) {
+  .hero-inner { flex-direction: column-reverse; text-align: center; gap: 40px; }
+  .hero-text { max-width: 100%; }
+  .hero-text p { margin: 0 auto 28px; }
+  .hero-actions { justify-content: center; }
+  .hero-stats { justify-content: center; }
+  .media-card { max-width: 300px; margin: 0 auto; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .nav ul { display: none; }
+  .menu-toggle { display: block; }
+  .nav.open { position: fixed; inset: 0; top: 65px; background: rgba(6,13,31,0.97); backdrop-filter: blur(20px); z-index: 99; }
   .nav.open ul {
     display: flex;
     flex-direction: column;
-    position: absolute;
-    left: 24px;
-    top: 68px;
-    background: var(--card);
-    padding: 12px;
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    z-index: 100;
-  }
-
-  .hero-text { max-width: 100%; text-align: center; }
-  .hero-inner { text-align: center; }
-  .hero-stats { justify-content: center; }
-  .projects-grid, .contact-grid { grid-template-columns: 1fr; }
-  .header-inner { gap: 8px; }
-  .media-card { max-width: 300px; border-radius: 14px; }
-}
-
-/* סידור החלק השמאלי של האודות */
-.about-content-left {
-    display: flex;
-    flex-direction: column;
-    gap: 18px; /* רווח בין הפיצ'רים לכלים הטכנולוגיים */
-}
-
-/* כותרת הכלים */
-.stack-title {
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-    color: var(--accent-1);
-    text-align: center;
-}
-
-/* גריד הכלים הטכנולוגיים */
-.tech-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 עמודות שוות */
-    gap: 12px;
-}
-
-.tech-item {
-    background: rgba(255, 255, 255, 0.02);
-    padding: 12px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 6px;
-    border: 1px solid var(--glass-border);
-    transition: 0.3s;
-}
-
-.tech-item:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: var(--accent-2);
-}
-
-.tech-item i {
-    font-size: 1.4rem;
-    color: var(--accent-2);
-}
-
-.tech-item span {
-    font-size: 0.85rem;
-    font-weight: 600;
-}
-
-/* התאמה למובייל - 2 עמודות במקום 3 */
-@media (max-width: 600px) {
-    .tech-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-
-/* תיקוני רספונסיביות למובייל */
-@media (max-width: 768px) {
-    
-    /* 1. הופך את כל הגרידים לטור אחד במקום כמה עמודות */
-    .panel-grid, 
-    .about-features, 
-    .projects-grid, 
-    .contact-grid {
-        grid-template-columns: 1fr !important;
-        gap: 20px;
-    }
-
-    /* 2. גריד הכלים הטכנולוגיים - במובייל כדאי 2 בשורה שיהיה קריא */
-    .tech-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
-
-    /* 3. ביטול גבהים קבועים כדי שהטקסט לא ייחתך */
-    .feature.glass, .profile.glass, .project-card {
-        height: auto !important;
-        padding: 20px;
-    }
-
-    /* 4. סידור התמונה ב-Hero שלא תתפוס את כל המסך */
-    .hero-inner {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .media-card {
-        max-width: 280px;
-        margin: 20px auto;
-    }
-
-    /* 5. יישור טקסט למרכז במובייל (אופציונלי, נראה יותר טוב) */
-    .hero-text h1 {
-        font-size: 2rem;
-    }
-    
-    .hero-actions {
-        justify-content: center;
-    }
-
-    /* תיקון ספציפי לכרטיס ה-About שבתמונה שלך */
-    .about-content-left {
-        order: 2; /* הפיצ'רים יופיעו מתחת לטקסט הראשי */
-    }
-    
-    .profile.glass {
-        order: 1;
-    }
-}
-
-.project-card img {
-    transition: transform 0.3s ease;
-    cursor: pointer;
-}
-
-.project-card img:hover {
-    transform: scale(1.05); /* הגדלה קלה של התמונה במעבר עכבר */
-}
-
-.btn-link {
-    display: inline-block;
-    margin-top: 10px;
-    color: var(--accent-1);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-}
-
-.btn-link:hover {
-    text-decoration: underline;
+    justify-content: center;
+    height: 100%;
+    gap: 24px;
+  }
+  .nav.open a { font-size: 1.2rem; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .features-grid { grid-template-columns: 1fr; }
+  .tech-grid { grid-template-columns: repeat(3, 1fr); }
+  .hero-text h1 { font-size: 2rem; }
+  .media-card { max-width: 260px; }
 }

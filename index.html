@@ -4,319 +4,359 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <title>QA Engineering Portfolio</title>
+  <title>Israel Buganim – QA & Python Developer</title>
   <link rel="icon" type="image/png" href="image/logo_web.png">
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init({ publicKey: "AADhVD_LF5fSXbPog" });
+    })();
+  </script>
 </head>
 <body>
+
   <header class="main-header">
-  <div class="container header-inner">
-    <div class="logo">QA<span>Expert</span></div>
-
-    <nav class="nav" aria-label="ניווט ראשי">
-      <ul>
-        <li><a href="#home">בית</a></li>
-        <li><a href="#about">אודות</a></li>
-        <li><a href="#projects">פרויקטים</a></li>
-        <li><a href="#skills">כישורים</a></li>
-        <li><a href="#contact">צור קשר</a></li>
-      </ul>
-    </nav>
-
-    <button class="menu-toggle" aria-label="פתח תפריט">
-      <i class="fa-solid fa-bars"></i>
-    </button>
-      
-  </div>
-</header>
+    <div class="container header-inner">
+      <div class="logo">
+        <img src="image/logo_web.png" alt="QA Expert Logo" class="logo-img" />
+      </div>
+      <nav class="nav" aria-label="ניווט ראשי">
+        <ul>
+          <li><a href="#home">בית</a></li>
+          <li><a href="#about">אודות</a></li>
+          <li><a href="#projects">פרויקטים</a></li>
+          <li><a href="#skills">כישורים</a></li>
+          <li><a href="#contact">צור קשר</a></li>
+        </ul>
+      </nav>
+      <button class="menu-toggle" aria-label="פתח תפריט">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
 
   <main>
+
     <section id="home" class="hero">
+      <div class="hero-bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+      </div>
       <div class="container hero-inner">
         <div class="hero-text">
-          <h1>Python Developer & QA Tester</h1>
-          <p>
-				מפתח תוכנה ובודק QA עם ניסיון ב-Python, בדיקות ידניות ותכנון תהליכי בדיקה. 
-				מתמחה בזיהוי תקלות, כתיבת דוחות באגים ושיפור איכות המוצר.
-		  </p>
+          <div class="hero-badge">
+            <span class="badge-dot"></span>
+            זמין לתפקידים חדשים
+          </div>
+          <h1>Python Developer<br/><span class="accent-text">&amp; QA Engineer</span></h1>
+          <p>מפתח תוכנה ובודק QA עם ניסיון ב-Python, בדיקות ידניות ותכנון תהליכי בדיקה. מתמחה בזיהוי תקלות, כתיבת דוחות באגים ושיפור איכות המוצר.</p>
           <div class="hero-actions">
-            <a class="btn primary" href="#projects">לפרויקטים שלי</a>
-			<a class="btn ghost" href="#about">קצת עליי</a>
+            <a class="btn primary" href="#projects">
+              <i class="fa-solid fa-code"></i>
+              הפרויקטים שלי
+            </a>
+            <a class="btn ghost" href="#contact">
+              <i class="fa-solid fa-paper-plane"></i>
+              צור קשר
+            </a>
           </div>
           <div class="hero-stats">
-            <div class="stat">
-              <h3>1+</h3>
-				<p>שנות ניסיון</p>
-			  </div>
-			  <div class="stat">
-				<h3>4+</h3>
-				<p>פרויקטים</p>
-			  </div>
-			  <div class="stat">
-				<h3>6+</h3>
-				<p>טכנולוגיות</p>
+            <div class="stat"><h3>1+</h3><p>שנות ניסיון</p></div>
+            <div class="stat-divider"></div>
+            <div class="stat"><h3>4+</h3><p>פרויקטים</p></div>
+            <div class="stat-divider"></div>
+            <div class="stat"><h3>6+</h3><p>טכנולוגיות</p></div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="media-card">
+            <img src="image/profile.png" alt="ישראל בוגנים" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about-section container">
+      <div class="section-label">אודות</div>
+      <div class="panel-grid">
+        <div class="profile-card glass">
+          <div class="avatar">
+            <img src="image/Israelbackground2.jpeg" alt="ישראל בוגנים" />
+          </div>
+          <div class="profile-info">
+            <h2>ישראל בוגנים</h2>
+            <p class="profile-title">Python Developer & QA Tester</p>
+            <p class="status-badge">
+              <span class="status-dot"></span>
+              מחפש משרת QA / Python Developer
+            </p>
+            <p class="profile-desc">מפתח תוכנה עם התמחות ב-Python ובדיקות תוכנה (QA). בעל ניסיון בעבודה עם HTML, CSS ו-SQL, עם הבנה בתכנון בדיקות, כתיבת דוחות באגים ובדיקות מובייל.</p>
+            <div class="profile-pills">
+              <span class="pill">Python</span>
+              <span class="pill">QA Testing</span>
+              <span class="pill">SQL</span>
+              <span class="pill">Jira</span>
             </div>
           </div>
         </div>
-
-        
-          <div class="media-card">
-            <img src="image/profile.png" alt="תמונת פרופיל"/>
+        <div class="about-right">
+          <div class="features-grid">
+            <div class="feature-card glass">
+              <div class="feature-icon">🔍</div>
+              <h3>בדיקות QA</h3>
+              <p>ביצוע בדיקות ידניות מקיפות וכתיבת תסריטי STP/STD מקצועיים.</p>
+            </div>
+            <div class="feature-card glass">
+              <div class="feature-icon">🐍</div>
+              <h3>פיתוח Python</h3>
+              <p>כתיבת קוד נקי לפתרון בעיות לוגיות ואוטומציה בסיסית.</p>
+            </div>
+            <div class="feature-card glass">
+              <div class="feature-icon">📊</div>
+              <h3>עבודה עם SQL</h3>
+              <p>שליפת נתונים ובדיקת תקינות בסיסי נתונים בשאילתות.</p>
+            </div>
+          </div>
+          <div class="tech-stack glass">
+            <h3 class="stack-title">כלי עבודה וטכנולוגיות</h3>
+            <div class="tech-grid">
+              <div class="tech-item"><i class="fa-brands fa-python"></i><span>Python</span></div>
+              <div class="tech-item"><i class="fa-solid fa-database"></i><span>SQL</span></div>
+              <div class="tech-item"><i class="fa-brands fa-jira"></i><span>Jira</span></div>
+              <div class="tech-item"><i class="fa-solid fa-vial"></i><span>Postman</span></div>
+              <div class="tech-item"><i class="fa-brands fa-github"></i><span>GitHub</span></div>
+              <div class="tech-item"><i class="fa-solid fa-clipboard-list"></i><span>TestRail</span></div>
+            </div>
           </div>
         </div>
-      
+      </div>
     </section>
 
-    <section id="about" class="panel container">
-  <div class="panel-grid">
-    
-    <div class="profile glass">
-      <div class="avatar">
-        <img src="image/Israelbackground2.jpeg" alt="ישראל בוגנים - מפתח תוכנה ובודק QA" />
-      </div>
-      <h2>קצת עליי</h2>
-      <p class="status">📍 מחפש משרת QA / Python Developer</p>
-      <p>
-        מפתח תוכנה עם התמחות ב-Python ובדיקות תוכנה (QA). 
-        בעל ניסיון בעבודה עם HTML, CSS ו-SQL, עם הבנה בתכנון בדיקות, כתיבת דוחות באגים ובדיקות מובייל. 
-        שואף להשתלב בתפקיד המשלב פיתוח ובדיקות תוך שיפור איכות המוצר.
-      </p>
-      <div class="skills-inline">
-        <span class="pill">Python</span>
-        <span class="pill">QA Testing</span>
-        <span class="pill">SQL</span>
-        <span class="pill">Jira</span>
-      </div>
-    </div>
-
-    <div class="about-content-left">
-      
-      <div class="about-features">
-        <div class="feature glass">
-          <div class="icon">🔍</div>
-          <h3>בדיקות QA</h3>
-          <p>ביצוע בדיקות ידניות מקיפות וכתיבת תסריטי STP/STD.</p>
-        </div>
-        <div class="feature glass">
-          <div class="icon">🐍</div>
-          <h3>פיתוח Python</h3>
-          <p>כתיבת קוד נקי לפתרון בעיות לוגיות ואוטומציה בסיסית.</p>
-        </div>
-        <div class="feature glass">
-          <div class="icon">📊</div>
-          <h3>עבודה עם SQL</h3>
-          <p>שליפת נתונים ובדיקת תקינות בסיסי נתונים בשאילתות.</p>
-        </div>
-      </div>
-
-      <div class="tech-stack-container glass">
-		  <h3 class="stack-title">כלי עבודה וטכנולוגיות</h3>
-		  <div class="tech-grid">
-			<div class="tech-item"><i class="fa-brands fa-python"></i><span>Python</span></div>
-			<div class="tech-item"><i class="fa-solid fa-database"></i><span>SQL</span></div>
-			<div class="tech-item"><i class="fa-brands fa-jira"></i><span>Jira</span></div>
-			<div class="tech-item"><i class="fa-solid fa-vial"></i><span>Postman</span></div>
-			<div class="tech-item"><i class="fa-brands fa-github"></i><span>GitHub</span></div>
-			<div class="tech-item"><i class="fa-solid fa-clipboard-list"></i><span>TestRail</span></div>
-		  </div>
-		</div>
-      </div>
-
-    
-</section>
-
-    <section id="projects" class="container section">
+    <section id="projects" class="projects-section container">
+      <div class="section-label">פרויקטים</div>
       <h2 class="section-title">פרויקטים נבחרים</h2>
+      <p class="section-sub">עבודות שפיתחתי — מ-Python ועד ממשקי משתמש</p>
       <div class="projects-grid">
         <article class="project-card">
-			  <a href="https://github.com/753israel/Homework" target="_blank">
-				<img src="image/home_work.png" alt="Python Fundamentals Project" />
-			  </a>
-			  
-			  <div class="project-body">
-				<h4>Python Fundamentals: Basics to OOP</h4>
-				<p>
-				  פרויקט מקיף המציג שליטה בשפת Python: החל מלוגיקה בסיסית ומבני נתונים, 
-				  ועד לפיתוח מודולרי ותכנות מונחה עצמים (OOP) מבוסס מחלקות.
-				</p>
-				<a href="https://github.com/753israel/Homework" target="_blank" class="btn-link">צפה בקוד ב-GitHub <i class="fa-brands fa-github"></i></a>
-			  </div>
-		</article>
-
-      <article class="project-card">
-			  <a href="https://753israel.github.io/The-Barber-vip-yosef/" target="_blank">
-				<img src="image/barber_web.png" alt="The Barber VIP Project" />
-			  </a>
-			  
-			  <div class="project-body">
-				<h4>The Barber VIP - Landing Page</h4>
-				<p>
-				  פיתוח דף נחיתה עסקי למספרת גברים, הכולל עיצוב רספונסיבי מותאם אישית, 
-				  תצוגת שירותים וממשק משתמש (UI) נקי ומקצועי המדגיש את חווית הלקוח.
-				</p>
-				<a href="https://github.com/753israel/The-Barber-vip-yosef" target="_blank" class="btn-link">
-				  צפה בקוד ב-GitHub <i class="fa-brands fa-github"></i>
-				</a>
-			  </div>
-		</article>
-
+          <a href="https://github.com/753israel/Homework" target="_blank" class="card-image-link">
+            <img src="image/home_work.png" alt="Python Fundamentals" />
+            <div class="card-overlay"><i class="fa-brands fa-github"></i></div>
+          </a>
+          <div class="project-body">
+            <div class="project-tags"><span class="tag">Python</span><span class="tag">OOP</span></div>
+            <h4>Python Fundamentals: Basics to OOP</h4>
+            <p>פרויקט מקיף המציג שליטה ב-Python: לוגיקה בסיסית, מבני נתונים ותכנות מונחה עצמים.</p>
+            <a href="https://github.com/753israel/Homework" target="_blank" class="btn-link">צפה בקוד <i class="fa-brands fa-github"></i></a>
+          </div>
+        </article>
         <article class="project-card">
-			  <a href="https://753israel.github.io/My-travel-website" target="_blank">
-				<img src="image/my_trip_web.png" alt="My Travel Website" />
-			  </a>
-			  
-			  <div class="project-body">
-				<h4>Travel Journal: Newark & Panama</h4>
-				<p>
-				  אתר חווייתי המתעד מסע בניוארק ופנמה סיטי. הפרויקט משלב ניהול תוכן ויזואלי, 
-				  פריסת גריד מתקדמת וממשק ידידותי המאפשר ניווט בין יעדים וחוויות שונות.
-				</p>
-				<a href="https://github.com/753israel/My-travel-website" target="_blank" class="btn-link">
-				  צפה בקוד ב-GitHub <i class="fa-brands fa-github"></i>
-				</a>
-			  </div>
-		</article>
-		
-		<article class="project-card">
-			<div class="project-body">
-				<div class="icon-box" style="font-size: 2rem; color: #e74c3c; margin-bottom: 1rem;">
-					<i class="fa-solid fa-file-pdf"></i>
-				</div>
-				<h4>Jira Testing & Bug Reporting</h4>
-				<p>
-					דו"ח בדיקות מקיף המציג ניהול מחזור חיי באג ב-Jira. המסמך כולל כתיבת תסריטי בדיקה (Test Cases), 
-					תיעוד צעדים לשחזור, ותעדוף תקלות על פי חומרתם.
-				</p>
-				<div class="skills-inline">
-					<span class="pill">Jira</span>
-					<span class="pill">STP/STD</span>
-					<span class="pill">Bug Life Cycle</span>
-				</div>
-				<a href="files/jira-tests-israel.pdf" target="_blank" class="btn-link" download>
-					הורד דו"ח בדיקות PDF <i class="fa-solid fa-download"></i>
-				</a>
-			</div>
-</article>
-
-      
-    <section id="skills" class="panel container">
-		  <h2 class="section-title">כישורים</h2>
-		  <div class="skills-list">
-
-			<div class="skill">
-			  <h4>Python</h4>
-			  <div class="meter"><span style="width:85%"></span></div>
-			</div>
-
-			<div class="skill">
-			  <h4>QA Testing</h4>
-			  <div class="meter"><span style="width:80%"></span></div>
-			</div>
-
-			<div class="skill">
-			  <h4>Test Planning</h4>
-			  <div class="meter"><span style="width:75%"></span></div>
-			</div>
-
-			<div class="skill">
-			  <h4>Bug Reporting</h4>
-			  <div class="meter"><span style="width:85%"></span></div>
-			</div>
-
-			<div class="skill">
-			  <h4>HTML & CSS</h4>
-			  <div class="meter"><span style="width:80%"></span></div>
-			</div>
-
-			<div class="skill">
-			  <h4>SQL</h4>
-			  <div class="meter"><span style="width:70%"></span></div>
-			</div>
-
-		  </div>
-	</section>
-
-    <section id="contact" class="container section">
-      <h2 class="section-title">צרו קשר</h2>
-      <div class="contact-grid">
-        <form class="contact-form" action="#" method="post" onsubmit="alert('טופס נשלח — החלף פעולה זו בשרת אמיתי');return false;">
-          <input type="text" name="name" placeholder="שם" required />
-          <input type="email" name="email" placeholder="אימייל" required />
-          <textarea name="message" rows="6" placeholder="הודעה" required></textarea>
-          <button class="btn primary" type="submit">שלח</button>
-        </form>
-
-        <div class="contact-info glass">
-          <h3>פרטי קשר</h3>
-          <p>דוא״ל: israelb300790@gmail.com<br>054-9272930</p>
-          <div class="social">
-			  <a href="https://www.linkedin.com/in/israel-buganim" target="_blank">
-				<i class="fa-brands fa-linkedin fa-2x"></i>
-			  </a>
-
-			  <a href="https://github.com/753israel" target="_blank">
-				<i class="fa-brands fa-github fa-2x"></i>
-			  </a>
-
-			  <a href="mailto:israelb300790@gmail.com">
-				<i class="fa-solid fa-envelope fa-2x"></i>
-			  </a>
-</div>
+          <a href="https://753israel.github.io/The-Barber-vip-yosef/" target="_blank" class="card-image-link">
+            <img src="image/barber_web.png" alt="The Barber VIP" />
+            <div class="card-overlay"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+          </a>
+          <div class="project-body">
+            <div class="project-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">UI</span></div>
+            <h4>The Barber VIP – Landing Page</h4>
+            <p>דף נחיתה עסקי למספרת גברים עם עיצוב רספונסיבי וממשק משתמש מקצועי.</p>
+            <a href="https://github.com/753israel/The-Barber-vip-yosef" target="_blank" class="btn-link">צפה בקוד <i class="fa-brands fa-github"></i></a>
+          </div>
+        </article>
+        <article class="project-card">
+          <a href="https://753israel.github.io/My-travel-website" target="_blank" class="card-image-link">
+            <img src="image/my_trip_web.png" alt="Travel Website" />
+            <div class="card-overlay"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+          </a>
+          <div class="project-body">
+            <div class="project-tags"><span class="tag">HTML</span><span class="tag">CSS Grid</span></div>
+            <h4>Travel Journal: Newark &amp; Panama</h4>
+            <p>אתר חווייתי המתעד מסע בניוארק ופנמה סיטי עם פריסת גריד מתקדמת.</p>
+            <a href="https://github.com/753israel/My-travel-website" target="_blank" class="btn-link">צפה בקוד <i class="fa-brands fa-github"></i></a>
+          </div>
+        </article>
+        <article class="project-card project-card-pdf">
+          <div class="pdf-icon-wrap"><i class="fa-solid fa-file-pdf"></i></div>
+          <div class="project-body">
+            <div class="project-tags"><span class="tag">Jira</span><span class="tag">STP/STD</span><span class="tag">Bug Life Cycle</span></div>
+            <h4>Jira Testing &amp; Bug Reporting</h4>
+            <p>דו"ח בדיקות מקיף הכולל כתיבת Test Cases, תיעוד צעדים לשחזור ותעדוף תקלות.</p>
+            <a href="files/jira-tests-israel.pdf" target="_blank" class="btn-link" download>הורד דו"ח PDF <i class="fa-solid fa-download"></i></a>
+          </div>
+        </article>
       </div>
     </section>
+
+    <section id="skills" class="skills-section container">
+      <div class="section-label">כישורים</div>
+      <h2 class="section-title">רמת שליטה</h2>
+      <div class="skills-grid">
+        <div class="skill-item">
+          <div class="skill-header"><span>Python</span><span class="skill-pct">85%</span></div>
+          <div class="meter"><span style="width:85%"></span></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span>QA Testing</span><span class="skill-pct">80%</span></div>
+          <div class="meter"><span style="width:80%"></span></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span>Test Planning</span><span class="skill-pct">75%</span></div>
+          <div class="meter"><span style="width:75%"></span></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span>Bug Reporting</span><span class="skill-pct">85%</span></div>
+          <div class="meter"><span style="width:85%"></span></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span>HTML &amp; CSS</span><span class="skill-pct">80%</span></div>
+          <div class="meter"><span style="width:80%"></span></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span>SQL</span><span class="skill-pct">70%</span></div>
+          <div class="meter"><span style="width:70%"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact-section container">
+      <div class="section-label">צור קשר</div>
+      <h2 class="section-title">בואו נדבר</h2>
+      <p class="section-sub">מחפש הזדמנות חדשה? שלח לי הודעה ואחזור אליך בהקדם</p>
+      <div class="contact-grid">
+        <div class="contact-form-wrap glass">
+          <h3>שלח הודעה</h3>
+          <form id="contact-form" class="contact-form" novalidate>
+			  <div class="form-row">
+				<div class="form-group">
+				  <label for="user_name">שם מלא</label>
+				  <input id="user_name" type="text" name="user_name" placeholder="ישראל כהן" required />
+				</div>
+				<div class="form-group">
+				  <label for="user_email">כתובת מייל</label>
+				  <input id="user_email" type="email" name="user_email" placeholder="israel@example.com" required />
+				</div>
+			  </div>
+			  <div class="form-group">
+				<label for="subject">נושא</label>
+				<input id="subject" type="text" name="subject" placeholder="הצעת עבודה / שיתוף פעולה" />
+			  </div>
+			  <div class="form-group">
+				<label for="message">הודעה</label>
+				<textarea id="message" name="message" rows="5" placeholder="ספר לי על ההצעה שלך..." required></textarea>
+			  </div>
+			  <button class="btn primary submit-btn" type="submit" id="submit-btn">
+				<span class="btn-text"><i class="fa-solid fa-paper-plane"></i> שלח הודעה</span>
+				<span class="btn-loading" style="display:none"><i class="fa-solid fa-spinner fa-spin"></i> שולח...</span>
+			  </button>
+			  <div id="form-status" class="form-status"></div>
+			</form>
+        </div>
+        <div class="contact-info">
+          <div class="info-card glass">
+            <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div>
+              <p class="info-label">דוא"ל</p>
+              <a href="mailto:israelb300790@gmail.com" class="info-value">israelb300790@gmail.com</a>
+            </div>
+          </div>
+          <div class="info-card glass">
+            <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+            <div>
+              <p class="info-label">טלפון</p>
+              <a href="tel:0549272930" class="info-value">054-9272930</a>
+            </div>
+          </div>
+          <div class="info-card glass">
+            <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div>
+              <p class="info-label">מיקום</p>
+              <p class="info-value">ישראל</p>
+            </div>
+          </div>
+          <div class="social-links">
+            <a href="https://www.linkedin.com/in/israel-buganim" target="_blank" class="social-btn linkedin">
+              <i class="fa-brands fa-linkedin"></i> LinkedIn
+            </a>
+            <a href="https://github.com/753israel" target="_blank" class="social-btn github">
+              <i class="fa-brands fa-github"></i> GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <footer class="footer">
-  <div class="container footer-content">
-
-    <p class="footer-text">© 2026 ישראל בוגנים | Python Developer & QA Tester</p>
-
-    <div class="socials">
-      <a href="https://www.linkedin.com/in/israel-buganim" target="_blank">
-        <i class="fa-brands fa-linkedin"></i>
-      </a>
-
-      <a href="https://github.com/753israel" target="_blank">
-        <i class="fa-brands fa-github"></i>
-      </a>
-
-      <a href="mailto:israelb300790@gmail.com">
-        <i class="fa-solid fa-envelope"></i>
-      </a>
+    <div class="container footer-inner">
+      <p>© 2026 ישראל בוגנים | Python Developer &amp; QA Tester</p>
+      <div class="footer-socials">
+        <a href="https://www.linkedin.com/in/israel-buganim" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/753israel" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <a href="mailto:israelb300790@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+      </div>
     </div>
-
-  </div>
-</footer>
+  </footer>
 
   <script>
-  const menuToggle = document.querySelector('.menu-toggle');
-  const navMenu = document.querySelector('.nav');
-
-  // פתיחה וסגירה של התפריט
-  if (menuToggle) {
-    menuToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('open');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('.nav');
+    if (menuToggle) {
+      menuToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          navMenu.classList.remove('open');
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
     });
-  }
 
-  // גלילה חלקה וסגירת התפריט לאחר לחיצה על קישור
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        
-        // סגירת התפריט במובייל
-        navMenu.classList.remove('open');
-        
-        // גלילה חלקה לאזור
-        target.scrollIntoView({
-          behavior: 'smooth'
-        });
-      }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.feature-card, .project-card, .skill-item, .info-card').forEach(el => {
+      el.classList.add('fade-up');
+      observer.observe(el);
     });
-  });
-</script>
+
+		// ה-Script המעודכן בתחתית העמוד (שינוי קל בשורת ה-sendForm)
+	document.getElementById('contact-form').addEventListener('submit', function(e) {
+	  e.preventDefault();
+	  const btn = document.getElementById('submit-btn');
+	  const btnText = btn.querySelector('.btn-text');
+	  const btnLoading = btn.querySelector('.btn-loading');
+	  const statusEl = document.getElementById('form-status');
+
+	  btnText.style.display = 'none';
+	  btnLoading.style.display = 'inline-flex';
+	  btn.disabled = true;
+	  statusEl.textContent = '';
+	  statusEl.className = 'form-status';
+
+	  // שימוש ישיר ב-ID של הטופס '#contact-form' במקום ב-this ליתר יציבות
+	  emailjs.sendForm('service_6ha9cti', 'template_dxgyuxf', '#contact-form')
+		.then(() => {
+		  statusEl.textContent = '✅ ההודעה נשלחה בהצלחה! אחזור אליך בהקדם.';
+		  statusEl.classList.add('success');
+		  this.reset();
+		}, (error) => {
+		  statusEl.textContent = '❌ שגיאה בשליחה. נסה שנית או פנה ישירות למייל.';
+		  statusEl.classList.add('error');
+		  console.error('EmailJS error:', error);
+		})
+		.finally(() => {
+		  btnText.style.display = 'inline-flex';
+		  btnLoading.style.display = 'none';
+		  btn.disabled = false;
+		});
+	});
+  </script>
 </body>
 </html>
