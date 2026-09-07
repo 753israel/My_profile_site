@@ -1144,3 +1144,22 @@ body {
     text-align: center;
   }
 }
+/* הגדרת הכרטיס כ-Flexbox בגובה מלא */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* מתיחת גוף הכרטיס למילוי השטח הפנוי */
+.project-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* דחיפת הכפתור שבתחתית לנקודה התחתונה ביותר */
+.project-body .btn-link {
+  margin-top: auto;
+  padding-top: 15px; /* מרווח בטיחות מהטקסט שמעליו */
+}
