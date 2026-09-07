@@ -1163,3 +1163,21 @@ body {
   margin-top: auto;
   padding-top: 15px; /* מרווח בטיחות מהטקסט שמעליו */
 }
+/* יישור גוף הכרטיס והתקשורת הפנימית */
+.project-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  text-align: center; /* מבטיח שכל הטקסט במרכז */
+}
+
+/* יישור אחיד וסימטרי לכל הכפתורים בתחתית */
+.project-body .btn-link {
+  margin-top: auto;
+  align-self: center; /* מיישר את הכפתור בדיוק למרכז הכרטיס */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* מרווח קבוע ואחיד בין המלל לאייקון */
+  padding-top: 15px;
+}
