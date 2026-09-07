@@ -1,0 +1,1165 @@
+/* ============================================================
+   משתנים גלובליים ואתחול (GLOBAL VARIABLES & RESET)
+   ============================================================ */
+:root {
+  --bg: #060d1f;              /* צבע רקע ראשי כהה */
+  --surface: #0b1530;         /* צבע רקע משני לרכיבים פנימיים */
+  --card: rgba(255,255,255,0.03);
+  --glass: rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.08);
+  --accent-1: #5eead4;        /* צבע טורקיז (Teal) */
+  --accent-2: #818cf8;        /* צבע אינדיגו/כחול (Indigo) */
+  --accent-3: #f472b6;        /* צבע ורוד (Pink) */
+  --muted: #94a3b8;           /* צבע טקסט משני/עמום */
+  --text: #e2e8f0;            /* צבע טקסט ראשי בהיר */
+  --radius: 16px;             /* רדיוס עיגול פינות ברירת מחדל */
+  --max-width: 1200px;        /* רוחב מקסימלי לאתר */
+  
+  /* הגדרת פונט DM Sans כפונט ברירת המחדל לכל האתר למראה נקי ומקצועי */
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+
+/* איפוס שוליים הגדרת Box-Sizing לחישוב נכון של גדלים */
+*, *::before, *::after { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
+
+/* גלילה חלקה במעבר בין תפריטים */
+html { 
+  scroll-behavior: smooth; 
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  direction: rtl; /* תמיכה בכתיבה מימין לשמאל */
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; /* מניעת גלילה אופקית מיותרת */
+}
+
+/* ============================================================
+   מבנה ופריסה גלובלית (LAYOUT)
+   ============================================================ */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* אפקט הזכוכית (Glassmorphism) המשמש פנלים וכרטיסים באתר */
+.glass {
+  background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(12px);
+}
+
+/* ============================================================
+   תפריט עליון (HEADER)
+   ============================================================ */
+.main-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(6,13,31,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 28px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.logo { 
+  display: flex; 
+  align-items: center; 
+  text-decoration: none; 
+}
+
+.logo-img { 
+  width: 56px; 
+  height: 56px; 
+  object-fit: contain; 
+}
+
+.nav ul { 
+  display: flex; 
+  gap: 4px; 
+  list-style: none; 
+}
+
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.nav a:hover { 
+  color: var(--text); 
+  background: rgba(255,255,255,0.05); 
+}
+
+/* כפתור תפריט המבורגר למובייל - מוסתר במסכים גדולים */
+.menu-toggle { 
+  display: none; 
+  background: none; 
+  border: none; 
+  color: var(--muted); 
+  font-size: 1.2rem; 
+  cursor: pointer; 
+  padding: 8px; 
+}
+
+/* ============================================================
+   אזור פתיחה ראשי (HERO SECTION)
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 80px 0;
+}
+
+/* צורות רקע אמורפיות זוהרות */
+.hero-bg-shapes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+}
+
+.shape-1 {
+  width: 600px; height: 600px;
+  background: var(--accent-2);
+  top: -200px; left: -200px;
+  animation: float1 8s ease-in-out infinite;
+}
+
+.shape-2 {
+  width: 400px; height: 400px;
+  background: var(--accent-1);
+  bottom: -100px; right: 10%;
+  animation: float2 10s ease-in-out infinite;
+}
+
+.shape-3 {
+  width: 300px; height: 300px;
+  background: var(--accent-3);
+  top: 50%; left: 40%;
+  animation: float1 12s ease-in-out infinite reverse;
+}
+
+/* אנימציות ריחוף לצורות הרקע */
+@keyframes float1 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-30px) rotate(5deg); }
+}
+@keyframes float2 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(20px); }
+}
+
+.hero-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.hero-text { 
+  max-width: 52%; 
+}
+
+/* תגית סטטוס זמינות לעבודה */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(94,234,212,0.08);
+  border: 1px solid rgba(94,234,212,0.2);
+  color: var(--accent-1);
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.badge-dot {
+  width: 8px; height: 8px;
+  background: var(--accent-1);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(0.8); opacity: 0.5; }
+}
+
+/* הכותרת הראשית ב-Hero - עודכנה לפונט DM Sans הנקי למניעת מתיחה */
+.hero-text h1 {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #fff;
+  margin-bottom: 18px;
+  letter-spacing: normal;
+}
+
+/* אפקט טקסט מדורג (גרדיאנט) */
+.accent-text {
+  background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-text p {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  max-width: 480px;
+}
+
+.hero-actions { 
+  display: flex; 
+  gap: 12px; 
+  flex-wrap: wrap; 
+  margin-bottom: 40px; 
+}
+
+/* כפתורים עיצוב כללי */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.25s;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  color: #04102a;
+}
+
+.btn.primary:hover { 
+  transform: translateY(-2px); 
+  box-shadow: 0 10px 30px rgba(94,234,212,0.25); 
+}
+
+.btn.ghost {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text);
+}
+
+.btn.ghost:hover { 
+  background: rgba(255,255,255,0.08); 
+  transform: translateY(-2px); 
+}
+
+/* בלוק נתוני סטטיסטיקות - עודכן לפונט DM Sans למספרים תקינים ולא מתוחים */
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.stat h3 { 
+  font-family: 'DM Sans', system-ui, sans-serif; 
+  font-size: 1.6rem; 
+  font-weight: 700; 
+  color: #fff; 
+  letter-spacing: normal;
+}
+
+.stat p { 
+  color: var(--muted); 
+  font-size: 0.85rem; 
+}
+
+.stat-divider { 
+  width: 1px; 
+  height: 40px; 
+  background: var(--glass-border); 
+}
+
+/* כרטיס תמונת הפרופיל הצידית ב-Hero */
+.media-card {
+  width: 100%;
+  max-width: 380px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  border: 1px solid var(--glass-border);
+  background: var(--surface);
+  position: relative;
+}
+
+.media-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2), var(--accent-3));
+  z-index: -1;
+  opacity: 0.5;
+}
+
+.media-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* ============================================================
+   תגיות וכותרות סקשנים גנריות (SECTION LABELS & TITLES)
+   ============================================================ */
+.section-label {
+  display: inline-block;
+  background: rgba(129,140,248,0.1);
+  border: 1px solid rgba(129,140,248,0.2);
+  color: var(--accent-2);
+  padding: 4px 14px;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+/* כותרות סקשנים - עודכנו לפונט נקי ומקצועי למניעת עיוות של אותיות לועזיות */
+.section-title {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+  letter-spacing: normal;
+}
+
+.section-sub {
+  color: var(--muted);
+  margin-bottom: 40px;
+  font-size: 1rem;
+}
+
+/* ============================================================
+   אזור אודות (ABOUT SECTION)
+   ============================================================ */
+.about-section { 
+  padding: 100px 0; 
+}
+
+.panel-grid {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.profile-card {
+  padding: 32px 24px;
+}
+
+.avatar {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border: 3px solid rgba(94,234,212,0.3);
+}
+
+.avatar img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+}
+
+.profile-info h2 {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.profile-title { 
+  color: var(--accent-1); 
+  font-size: 0.9rem; 
+  font-weight: 500; 
+  margin-bottom: 14px; 
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(94,234,212,0.06);
+  border: 1px solid rgba(94,234,212,0.15);
+  color: var(--accent-1);
+  padding: 5px 12px;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  margin-bottom: 16px;
+}
+
+.status-dot {
+  width: 6px; height: 6px;
+  background: var(--accent-1);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.profile-desc { 
+  color: var(--muted); 
+  font-size: 0.9rem; 
+  line-height: 1.7; 
+  margin-bottom: 16px; 
+}
+
+.profile-pills { 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 8px; 
+}
+
+.pill {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--glass-border);
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.about-right { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 20px; 
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.feature-card {
+  padding: 20px;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(94,234,212,0.2);
+}
+
+.feature-icon { 
+  font-size: 1.8rem; 
+  margin-bottom: 10px; 
+}
+
+.feature-card h3 { 
+  font-family: 'DM Sans', system-ui, sans-serif; 
+  font-size: 1rem; 
+  font-weight: 700; 
+  color: #fff; 
+  margin-bottom: 8px; 
+}
+
+.feature-card p { 
+  color: var(--muted); 
+  font-size: 0.85rem; 
+  line-height: 1.6; 
+}
+
+/* בלוק גריד טכנולוגיות וכלי עבודה */
+.tech-stack { 
+  padding: 24px; 
+}
+
+.stack-title {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-1);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.tech-grid { 
+  display: grid; 
+  grid-template-columns: repeat(6, 1fr); 
+  gap: 12px; 
+}
+
+.tech-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 8px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.tech-item:hover { 
+  background: rgba(255,255,255,0.05); 
+  border-color: var(--accent-2); 
+  transform: translateY(-2px); 
+}
+
+.tech-item i { 
+  font-size: 1.4rem; 
+  color: var(--accent-2); 
+}
+
+.tech-item span { 
+  font-size: 0.75rem; 
+  font-weight: 600; 
+  color: var(--muted); 
+}
+
+/* ============================================================
+   אזור פרויקטים (PROJECTS SECTION)
+   ============================================================ */
+.projects-section { 
+  padding: 100px 0; 
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+  border-color: rgba(94,234,212,0.2);
+}
+
+.card-image-link { 
+  position: relative; 
+  display: block; 
+  overflow: hidden; 
+}
+
+.card-image-link img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s;
+}
+
+.card-image-link:hover img { 
+  transform: scale(1.06); 
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(6,13,31,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.card-image-link:hover .card-overlay { 
+  opacity: 1; 
+}
+
+/* כרטיס ייעודי להורדת דוחות PDF */
+.project-card-pdf {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.pdf-icon-wrap {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(239,68,68,0.05));
+  font-size: 3rem;
+  color: #ef4444;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.project-body { 
+  padding: 16px; 
+}
+
+.project-tags { 
+  display: flex; 
+  gap: 6px; 
+  flex-wrap: wrap; 
+  margin-bottom: 10px; 
+}
+
+.tag {
+  background: rgba(129,140,248,0.1);
+  border: 1px solid rgba(129,140,248,0.2);
+  color: var(--accent-2);
+  padding: 2px 10px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.project-body h4 {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.project-body p { 
+  color: var(--muted); 
+  font-size: 0.85rem; 
+  line-height: 1.6; 
+  margin-bottom: 12px; 
+}
+
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent-1);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: gap 0.2s;
+}
+
+.btn-link:hover { 
+  gap: 10px; 
+}
+
+/* ============================================================
+   אזור מדדי כישורים (SKILLS SECTION)
+   ============================================================ */
+.skills-section { 
+  padding: 100px 0; 
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.skill-item {
+  background: var(--surface);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+.skill-pct { 
+  color: var(--accent-1); 
+  font-size: 0.85rem; 
+}
+
+/* עיצוב פסי ההתקדמות (Progress bars) עם אפקט אנימציית ברק שחולף */
+.meter {
+  height: 8px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.meter span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-2), var(--accent-1));
+  border-radius: 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+.meter span::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ============================================================
+   טופס יצירת קשר (CONTACT SECTION)
+   ============================================================ */
+.contact-section { 
+  padding: 100px 0 120px; 
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 28px;
+  align-items: start;
+}
+
+.contact-form-wrap { 
+  padding: 36px; 
+}
+
+.contact-form-wrap h3 {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 24px;
+}
+
+.contact-form { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 16px; 
+}
+
+.form-row { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 16px; 
+}
+
+.form-group { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 6px; 
+}
+
+.form-group label { 
+  font-size: 0.85rem; 
+  font-weight: 500; 
+  color: var(--muted); 
+}
+
+.contact-form input,
+.contact-form textarea {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--glass-border);
+  padding: 12px 16px;
+  border-radius: 10px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder { 
+  color: rgba(148,163,184,0.4); 
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--accent-1);
+  background: rgba(94,234,212,0.04);
+}
+
+.contact-form textarea { 
+  resize: vertical; 
+  min-height: 120px; 
+}
+
+.submit-btn { 
+  align-self: flex-start; 
+  min-width: 160px; 
+  justify-content: center; 
+}
+
+.submit-btn:disabled { 
+  opacity: 0.6; 
+  cursor: not-allowed; 
+  transform: none !important; 
+}
+
+.btn-loading { 
+  display: inline-flex; 
+  align-items: center; 
+  gap: 8px; 
+}
+
+/* סטטוס שליחת טופס (הצלחה / שגיאה) */
+.form-status {
+  font-size: 0.9rem;
+  padding: 10px 14px;
+  border-radius: 8px;
+  display: none;
+}
+
+.form-status.success {
+  display: block;
+  background: rgba(16,185,129,0.1);
+  border: 1px solid rgba(16,185,129,0.2);
+  color: #34d399;
+}
+
+.form-status.error {
+  display: block;
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.2);
+  color: #f87171;
+}
+
+/* כרטיסי מידע ליצירת קשר (מייל, טלפון, מיקום) */
+.contact-info { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 16px; 
+}
+
+.info-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+}
+
+.info-icon {
+  width: 44px; height: 44px;
+  background: rgba(94,234,212,0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-1);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.info-label { 
+  font-size: 0.75rem; 
+  color: var(--muted); 
+  font-weight: 500; 
+  margin-bottom: 2px; 
+}
+
+.info-value { 
+  font-size: 0.9rem; 
+  color: var(--text); 
+  font-weight: 500; 
+  text-decoration: none; 
+}
+
+.info-value:hover { 
+  color: var(--accent-1); 
+}
+
+/* כפתורי רשתות חברתיות */
+.social-links { 
+  display: flex; 
+  gap: 12px; 
+}
+
+.social-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid var(--glass-border);
+  transition: all 0.2s;
+}
+
+.social-btn.linkedin { color: #60a5fa; }
+.social-btn.github { color: var(--text); }
+
+.social-btn:hover { 
+  background: rgba(255,255,255,0.05); 
+  transform: translateY(-2px); 
+}
+
+/* ============================================================
+   חלק תחתון (FOOTER)
+   ============================================================ */
+.footer {
+  border-top: 1px solid var(--glass-border);
+  padding: 28px 0;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.footer-socials { 
+  display: flex; 
+  gap: 12px; 
+}
+
+.footer-socials a {
+  color: var(--muted);
+  font-size: 1.1rem;
+  transition: color 0.2s;
+  text-decoration: none;
+}
+
+.footer-socials a:hover { 
+  color: var(--accent-1); 
+}
+
+/* ============================================================
+   אנימציות כניסת תוכן (ANIMATIONS)
+   ============================================================ */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   התאמה למכשירים ורספונסיביות (RESPONSIVE DESIGN)
+   ============================================================ */
+
+/* מסכים בינוניים ומחשבים ניידים קטנים */
+@media (max-width: 1100px) {
+  .projects-grid { 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 20px;
+  }
+  .tech-grid { 
+    grid-template-columns: repeat(4, 1fr); 
+  }
+  .panel-grid { 
+    grid-template-columns: 1fr; 
+    gap: 32px;
+  }
+  .profile-card { 
+    max-width: 100%; 
+  }
+  .features-grid { 
+    grid-template-columns: repeat(3, 1fr); 
+  }
+}
+
+/* טאבלטים ומסכים עד 800 פיקסלים */
+@media (max-width: 800px) {
+  .hero {
+    padding: 60px 0;
+    min-height: auto;
+  }
+  .hero-inner { 
+    flex-direction: column-reverse; 
+    text-align: center; 
+    gap: 40px; 
+  }
+  .hero-text { 
+    max-width: 100%; 
+  }
+  .hero-text p { 
+    margin: 0 auto 28px; 
+  }
+  .hero-actions { 
+    justify-content: center; 
+  }
+  .hero-stats { 
+    justify-content: center; 
+  }
+  .media-card { 
+    max-width: 300px; 
+    margin: 0 auto; 
+  }
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .contact-grid { 
+    grid-template-columns: 1fr; 
+    gap: 32px;
+  }
+  .form-row { 
+    grid-template-columns: 1fr; 
+  }
+  .skills-grid { 
+    grid-template-columns: 1fr; 
+  }
+}
+
+/* טלפונים ניידים ומכשירים קטנים (מובייל - עד 640 פיקסלים) */
+@media (max-width: 640px) {
+  .container {
+    padding: 0 20px;
+  }
+  
+  /* תפריט המבורגר רספונסיבי במצב פתוח */
+  .menu-toggle { 
+    display: block !important; 
+    color: var(--text);
+  }
+  .nav {
+    display: none;
+  }
+  .nav.open { 
+    display: block !important;
+    position: fixed; 
+    inset: 0; 
+    top: 80px; 
+    background: rgba(6, 13, 31, 0.98); 
+    backdrop-filter: blur(20px); 
+    z-index: 99; 
+    padding: 40px 20px;
+  }
+  .nav.open ul {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    gap: 32px;
+  }
+  .nav.open a { 
+    font-size: 1.3rem; 
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+  }
+
+  /* התאמות תוכן ייעודיות למסכי טלפונים */
+  .hero-text h1 { 
+    font-size: 2.2rem; 
+  }
+  .hero-actions .btn {
+    width: 100%; /* כפתורים ברוחב מלא ללחיצה קלה במובייל */
+    justify-content: center;
+  }
+  
+  .profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .profile-pills {
+    justify-content: center;
+  }
+  .features-grid { 
+    grid-template-columns: 1fr; 
+  }
+  .projects-grid { 
+    grid-template-columns: 1fr; 
+  }
+  .tech-grid { 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 10px;
+  }
+  .contact-form-wrap {
+    padding: 24px;
+  }
+  .submit-btn {
+    width: 100%;
+  }
+  .social-links {
+    flex-direction: column;
+  }
+  
+  .footer-inner {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+}
+/* הגדרת הכרטיס כ-Flexbox בגובה מלא */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* מתיחת גוף הכרטיס למילוי השטח הפנוי */
+.project-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* דחיפת הכפתור שבתחתית לנקודה התחתונה ביותר */
+.project-body .btn-link {
+  margin-top: auto;
+  padding-top: 15px; /* מרווח בטיחות מהטקסט שמעליו */
+}
