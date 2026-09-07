@@ -1151,12 +1151,6 @@ body {
   height: 100%;
 }
 
-/* מתיחת גוף הכרטיס למילוי השטח הפנוי */
-.project-body {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
 
 /* דחיפת הכפתור שבתחתית לנקודה התחתונה ביותר */
 .project-body .btn-link {
